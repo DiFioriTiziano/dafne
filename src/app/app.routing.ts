@@ -6,13 +6,13 @@ import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
-import { LoginComponent } from './views/login/login.component';
+import { LoginComponent } from './features/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -51,8 +51,8 @@ export const routes: Routes = [
     },
     children: [
       {
-        path: 'base',
-        loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule)
+        path: 'verbali',
+        loadChildren: () => import('./features/volumi/verbali/verbali.module').then(m => m.VerbaliModule)
       },
       {
         path: 'buttons',
@@ -64,7 +64,7 @@ export const routes: Routes = [
       },
       {
         path: 'dashboard',
-        loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule)
+        loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule)
       },
       {
         path: 'icons',
