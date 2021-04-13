@@ -31,15 +31,10 @@ export const navItems: INavData[] = [
         icon: 'icon-puzzle',
         children: [
           {
-            name: 'Inserimento',
+            name: 'Elenco',
             url: '/verbali/inserimento',
             icon: 'icon-puzzle'
           },
-          {
-            name: 'Modifica',
-            url: '/verbali/modifica',
-            icon: 'icon-puzzle'
-          }
         ]
       },
       {
@@ -48,15 +43,10 @@ export const navItems: INavData[] = [
         icon: 'icon-puzzle',
         children: [
           {
-            name: 'Inserimento',
+            name: 'Elenco',
             url: '/volumi/inserimento',
             icon: 'icon-puzzle'
           },
-          {
-            name: 'Modifica',
-            url: '/volumi/modifica',
-            icon: 'icon-puzzle'
-          }
         ]
       }
     ]
