@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
     <div class="col-sm">
       <div class="card card-accent-info">
         <div class="card-header">
-          Inserimento volume
+          Elenco Verbali
         </div>
         <div class="card-body">
         <form action="" method="post" class="form-horizontal">

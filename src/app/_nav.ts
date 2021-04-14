@@ -13,12 +13,7 @@ export const navItems: INavData[] = [
 
   {
     title: true,
-    name: 'Shared'
-  },
-  {
-    name: 'Shared',
-    url: '/shared/test',
-    icon: 'icon-drop'
+    name: 'Dafne'
   },
   {
     name: 'Volumi',
@@ -50,13 +45,5 @@ export const navItems: INavData[] = [
         ]
       }
     ]
-  },
-  {
-    name: 'Try CoreUI PRO',
-    url: 'http://coreui.io/pro/angular/',
-    icon: 'icon-layers',
-    class: 'mt-auto',
-    variant: 'danger',
-    attributes: { target: '_blank', rel: 'noopener' }
   }
 ];
