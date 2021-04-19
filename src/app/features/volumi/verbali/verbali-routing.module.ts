@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { VerbaliComponent } from './verbali.component';
+import { VvListComponent } from './vv-list/vv-list.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,7 @@ const routes: Routes = [
       },
       {
         path: 'elenco',
-        component: VerbaliComponent,
+        component: VvListComponent,
         data: {
           title: 'Elenco'
         }
