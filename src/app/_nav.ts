@@ -27,7 +27,7 @@ export const navItems: INavData[] = [
         children: [
           {
             name: 'Elenco',
-            url: '/verbali/inserimento',
+            url: '/verbali/elenco',
             icon: 'icon-puzzle'
           },
         ]
@@ -39,7 +39,7 @@ export const navItems: INavData[] = [
         children: [
           {
             name: 'Elenco',
-            url: '/volumi/inserimento',
+            url: '/volumi/elenco',
             icon: 'icon-puzzle'
           },
         ]

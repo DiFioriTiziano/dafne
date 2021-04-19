@@ -24,7 +24,7 @@ import { RegisterComponent } from './views/register/register.component';
 const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
-
+//import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import {
   AppAsideModule,
   AppBreadcrumbModule,
@@ -39,7 +39,8 @@ import { AppRoutingModule } from './app.routing';
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts';
+
+
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { ChartsModule } from 'ng2-charts';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
-    ChartsModule
+
+
   ],
   declarations: [
     AppComponent,

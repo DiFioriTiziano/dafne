@@ -14,13 +14,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'inserimento'
+        redirectTo: 'elenco'
       },
       {
-        path: 'inserimento',
+        path: 'elenco',
         component: VerbaliComponent,
         data: {
-          title: 'Inserimento'
+          title: 'Elenco'
         }
       }
     ]
