@@ -77,7 +77,11 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
       <div class="row">
         <div class="col-xs-12 col-12">
-          <pagination [totalItems]="this.dataSource.data.length" (pageChanged)="pageChanged($event)"></pagination>
+          <pagination
+          [totalItems]="22"
+          (numPages)="smallnumPages = $event"
+          (pageChanged)="pageChanged($event)">
+          </pagination>
         </div>
       </div>
 
@@ -93,8 +97,14 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 })
 export class VvDatatableComponent implements OnInit {
 
+  // this.dataSource.data.length
+
+
  // @Input('verbali') verbaliList$: Observable<any[]>;
   @Input('dataSource') dataSource: any;
+
+  currentPage: number = 4;
+  smallnumPages: number = 2;
 
   formGroup: FormGroup;
   filteredVerbali$: Observable<any[]>;
