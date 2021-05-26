@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import {  Observable } from 'rxjs';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-
+import { VerbaliService } from '../../../../../services/verbali.service';
 
 
 
@@ -85,12 +85,8 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
         </div>
       </div>
 
+    <dafne-vv-addverbale-modal></dafne-vv-addverbale-modal>
 
-      <div class="row">
-      <div class="col-xs-12 col-12">
-      <button [routerLink]="['/']" type="button" class="btn btn-outline-primary btn-lg btn-block"><i class="fa fa-plus fa-lg"></i></button>
-      </div>
-    </div>
 
     </div>
   </div>
@@ -110,7 +106,9 @@ export class VvDatatableComponent implements OnInit {
   formGroup: FormGroup;
   filteredVerbali$: Observable<any[]>;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private srv: VerbaliService) {
+
+  }
 
 
 
@@ -169,6 +167,9 @@ export class VvDatatableComponent implements OnInit {
   }
 
 
+  addVerbale() {
+      //this.srv
+  }
 
 
 

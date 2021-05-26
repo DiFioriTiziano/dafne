@@ -18,38 +18,21 @@ import { VerbaliService } from '../../../../services/verbali.service';
 
 export class VvListComponent implements OnInit {
 
-  //verbali$: Observable<any[]>;
-  data: any;
-
   dataSource:object;
-
-
 
   constructor(private srv:VerbaliService) {}
 
   ngOnInit(): void {
 
-   // this.verbali$ = this.srv.getVerbali();
-
-    this.srv.getVerbali().subscribe((resp)=> { this.data = resp
-
-        this.dataSource = {
-          data : this.data
+    this.srv.getVerbali().subscribe((resp)=> { 
+      
+          this.dataSource = {
+          data : resp
         }
 
     });
 
-
-
-
-
-
-
-
   }
-
-
-
 
 }
 

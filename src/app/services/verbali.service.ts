@@ -15,11 +15,13 @@ API_URL: string;
   }
 
 
-
-
   getVerbali(): Observable<any> {
     return this.http_client.get<any>(`${this.API_URL}/verbali/getverbali/`)
   }
 
+
+  addVerbale(): Observable<any> {
+    return this.http_client.get<any>(`${this.API_URL}/verbali/addverbale/`)
+  }
 
 }

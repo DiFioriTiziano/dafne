@@ -10,15 +10,19 @@ import { VvDatatableComponent } from './components/vv-datatable/vv-datatable.com
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { VvAddverbaleModalComponent } from './components/vv-addverbale-modal/vv-addverbale-modal.component';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
-  declarations: [VerbaliComponent, VvListComponent, VvDatatableComponent],
+  declarations: [VerbaliComponent, VvListComponent, VvDatatableComponent, VvAddverbaleModalComponent],
   imports: [
     ReactiveFormsModule,
     CommonModule,
     HttpClientModule,
     VerbaliRoutingModule,
+    ModalModule.forRoot(),
     PaginationModule.forRoot()
 
   ],
