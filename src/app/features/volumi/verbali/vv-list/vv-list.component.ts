@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { VerbaliService } from '../../../../services/verbali.service';
 
 
@@ -9,7 +8,8 @@ import { VerbaliService } from '../../../../services/verbali.service';
   selector: 'dafne-vv-list',
   template: `
   <div class="animated fadeIn">
-    <dafne-vv-datatable *ngIf="dataSource" [dataSource]="dataSource"></dafne-vv-datatable>
+    <dafne-vv-datatable *ngIf="dataSource" [dataSource]="dataSource" (emitFromDatatable)="datiVerba($event)"></dafne-vv-datatable>
+
   </div>
   `,
   styleUrls: ['./vv-list.component.css']
@@ -23,15 +23,17 @@ export class VvListComponent implements OnInit {
   constructor(private srv:VerbaliService) {}
 
   ngOnInit(): void {
-
-    this.srv.getVerbali().subscribe((resp)=> { 
-      
+    this.srv.getVerbali().subscribe((resp)=> {
           this.dataSource = {
           data : resp
         }
-
     });
 
+  }
+
+
+  datiVerba($event){
+    console.log("Dati arrivati al container ",$event);
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, startWith } from 'rxjs/operators';
 import {  Observable } from 'rxjs';
@@ -85,8 +85,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
         </div>
       </div>
 
-    <dafne-vv-addverbale-modal></dafne-vv-addverbale-modal>
-
+      <dafne-vv-addverbale-modal (emitFromVerbale)="datiVerbale($event)"></dafne-vv-addverbale-modal>
 
     </div>
   </div>
@@ -96,9 +95,8 @@ import { VerbaliService } from '../../../../../services/verbali.service';
 })
 export class VvDatatableComponent implements OnInit {
 
-  // this.dataSource.data.length
-
   @Input('dataSource') dataSource: any;
+  @Output() emitFromDatatable: EventEmitter<any> = new EventEmitter<any>();
 
   currentPage: number = 4;
   smallnumPages: number = 2;
@@ -106,12 +104,7 @@ export class VvDatatableComponent implements OnInit {
   formGroup: FormGroup;
   filteredVerbali$: Observable<any[]>;
 
-  constructor(private formBuilder: FormBuilder, private srv: VerbaliService) {
-
-  }
-
-
-
+  constructor(private formBuilder: FormBuilder, private srv: VerbaliService) {}
 
   ngOnInit(): void {
 
@@ -126,24 +119,7 @@ export class VvDatatableComponent implements OnInit {
             )
           )
 
-
-/*
-    this.filteredVerbali$ = combineLatest([
-      this.formGroup.get('filter').valueChanges.pipe(startWith("")),
-      this.verbaliList$
-     ]).pipe(
-        map( ([val, verbali]) =>
-          !val
-          ? verbali
-          : verbali.filter(x =>   x.verbale_periodo.toLowerCase().includes(val), console.log(verbali) )
-        )
-      )
- */
-
-
-
   }
-
 
 
   pageChanged(event: PageChangedEvent): void {
@@ -152,9 +128,6 @@ export class VvDatatableComponent implements OnInit {
     const endItem = event.page * event.itemsPerPage;
     this.dataSource.data = this.dataSource.data.slice(startItem, endItem);
   }
-
-
-
 
   search(array, keyword) {
     const regExp = new RegExp(keyword,"gi");
@@ -167,8 +140,9 @@ export class VvDatatableComponent implements OnInit {
   }
 
 
-  addVerbale() {
-      //this.srv
+   datiVerbale($event){
+    console.log("dati emessi dal datatable: ",$event);
+    this.emitFromDatatable.emit($event);
   }
 
 
