@@ -24,4 +24,20 @@ API_URL: string;
     return this.http_client.get<any>(`${this.API_URL}/verbali/addverbale/`)
   }
 
+
+  login(user:string, password:string ) {
+
+    return this.http_client.post<any>(`${this.API_URL}/Login/login`,{user, password})
+
+
+
+/*     return this.http_client.post<any>(`${this.API_URL}/verbali/login`,{user, password}).pipe(
+       tap(res =>  {
+         this.setSession(res,user),
+         this.loggedIn.next(true)
+        } ),
+        shareReplay()
+    ) */
+}
+
 }
