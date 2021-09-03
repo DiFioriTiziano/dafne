@@ -27,7 +27,7 @@ API_URL: string;
 
   login(user:string, password:string ) {
 
-    return this.http_client.post<any>(`${this.API_URL}/Login/login`,{user, password})
+    return this.http_client.post<any>(`${this.API_URL}/auth/login`,{user, password})
 
 
 
