@@ -35,11 +35,29 @@ import { VerbaliService } from '../../../../../services/verbali.service';
             placeholder="Ricerca nei dati..."
             formControlName="filter"
             >
-
+            
         </div>
       </div>
     </div>
 
+
+
+
+    <div class="card">
+           
+    <div class="card-body">
+
+    </div>
+
+
+  <!--  <button type="button" class="btn btn-primary"
+      (click)="isCollapsed = !isCollapsed">Ricerca avanzata
+    </button>
+  -->
+
+  </div>
+
+  <a href="">Ricerca avanzata</a>      
 
 
   </form>
@@ -85,7 +103,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
         </div>
       </div>
 
-      <dafne-vv-addverbale-modal (emitFromVerbale)="datiVerbale($event)"></dafne-vv-addverbale-modal>
+      <!-- <dafne-vv-addverbale-modal (emitFromVerbale)="datiVerbale($event)"></dafne-vv-addverbale-modal> -->
 
     </div>
   </div>
@@ -105,6 +123,24 @@ export class VvDatatableComponent implements OnInit {
   filteredVerbali$: Observable<any[]>;
 
   constructor(private formBuilder: FormBuilder, private srv: VerbaliService) {}
+
+
+
+/*   (collapsed)="collapsed($event)"
+  (expanded)="expanded($event)"
+  [collapse]="isCollapsed" */
+
+
+  
+  isCollapsed: boolean = false;
+
+  collapsed(event: any): void {
+     console.log(event);
+  }
+
+  expanded(event: any): void {
+     console.log(event);
+  }
 
   ngOnInit(): void {
 
