@@ -46,11 +46,11 @@ import { VerbaliService } from '../../../../../services/verbali.service';
     <div class="card">
 
     <div class="card-body">
-    <form >
+    <form [formGroup]="formAvanzata">
       <div class="row">
         <div class="form-group col-sm-4">
           <label for="volumePeriodo">Volume-Periodo</label>
-          <select class="form-control" id="volumePeriodo" name="volumePeriodo" >
+          <select class="form-control" id="volumePeriodo" name="volumePeriodo" formControlName="volumePeriodo" >
           <option>Tutti</option>
             <option>14</option>
             <option>1</option>
@@ -59,7 +59,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
         </div>
         <div class="form-group col-sm-4">
           <label for="dataVerbale">Data Verbale</label>
-          <select class="form-control" id="dataVerbale" name="dataVerbale" >
+          <select class="form-control" id="dataVerbale" name="dataVerbale" formControlName="dataVerbale" >
             <option>12/04/1944</option>
             <option>17/03/1906</option>
             <option>10/02/1906</option>
@@ -67,7 +67,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
         </div>
         <div class="form-group col-sm-4">
           <label for="odg">Ordine del giorno</label>
-          <select class="form-control" id="odg" name="odg">
+          <select class="form-control" id="odg" name="odg" formControlName="odg">
             <option>1</option>
             <option>2</option>
             <option>3</option>
@@ -90,6 +90,19 @@ import { VerbaliService } from '../../../../../services/verbali.service';
     </button>
 
 
+    <pre>
+    <code>
+      status- <b>{{ formAvanzata.status }}</b>
+      valid- <b>{{ formAvanzata.valid }}</b>
+      invalid- <b>{{ formAvanzata.invalid }}</b>
+      pristine- <b>{{ formAvanzata.pristine }}</b>
+      dirty- <b>{{ formAvanzata.dirty }}</b>
+      touched- <b>{{ formAvanzata.touched }}</b>
+      untouched- <b>{{ formAvanzata.untouched }}</b>
+    </code>
+  </pre>
+
+  <pre><code>{{ formAvanzata.value | json }}</code></pre>
 
 
   </div>
@@ -149,6 +162,7 @@ export class VvDatatableComponent implements OnInit {
   smallnumPages: number = 2;
 
   formGroup: FormGroup;
+  formAvanzata: FormGroup;
   filteredVerbali$: Observable<any[]>;
 
   constructor(private formBuilder: FormBuilder, private srv: VerbaliService) {}
@@ -183,6 +197,13 @@ export class VvDatatableComponent implements OnInit {
               : this.search(this.dataSource.data, val)
             )
           )
+
+
+          this.formAvanzata = this.formBuilder.group({
+            volumePeriodo: [''],
+            dataVerbale: [''],
+            odg: ['']
+          });
 
 
 //console.log(this.isCollapsed)
