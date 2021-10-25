@@ -35,7 +35,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
             placeholder="Ricerca nei dati..."
             formControlName="filter"
             >
-
+            
         </div>
       </div>
     </div>
@@ -44,33 +44,32 @@ import { VerbaliService } from '../../../../../services/verbali.service';
 
 
     <div class="card">
-
+           
     <div class="card-body">
-    <form >
+    <form>
       <div class="row">
         <div class="form-group col-sm-4">
-          <label for="volumePeriodo">Volume-Periodo</label>
-          <select class="form-control" id="volumePeriodo" name="volumePeriodo" >
-          <option>Tutti</option>
-            <option>14</option>
-            <option>1</option>
-            <option>2</option>
-          </select>
-        </div>
-        <div class="form-group col-sm-4">
-          <label for="dataVerbale">Data Verbale</label>
-          <select class="form-control" id="dataVerbale" name="dataVerbale" >
-            <option>12/04/1944</option>
-            <option>17/03/1906</option>
-            <option>10/02/1906</option>
-          </select>
-        </div>
-        <div class="form-group col-sm-4">
-          <label for="odg">Ordine del giorno</label>
-          <select class="form-control" id="odg" name="odg">
+          <label for="ccmonth">Volume-Periodo</label>
+          <select class="form-control" id="ccmonth">
             <option>1</option>
             <option>2</option>
             <option>3</option>
+          </select>
+        </div>
+        <div class="form-group col-sm-4">
+          <label for="ccyear">Data Verbale</label>
+          <select class="form-control" id="ccyear">
+            <option>2014</option>
+            <option>2015</option>
+            <option>2016</option>
+          </select>
+        </div>
+        <div class="form-group col-sm-4">
+          <label for="ccyear">Ordine del giorno</label>
+          <select class="form-control" id="ccyear">
+            <option>2014</option>
+            <option>2015</option>
+            <option>2016</option>
           </select>
         </div>
 <!--         <div class="col-sm-4">
@@ -78,9 +77,9 @@ import { VerbaliService } from '../../../../../services/verbali.service';
             <label for="cvv">CVV/CVC</label>
             <input type="text" class="form-control" id="cvv" placeholder="123">
           </div>
-        </div>
+        </div> 
 -->
-      </div>
+      </div>    
     </form>
     </div>
 
@@ -90,34 +89,35 @@ import { VerbaliService } from '../../../../../services/verbali.service';
     </button>
 
 
-
-
   </div>
 
 
-      <table class="table table-bordered table-striped table-sm">
-      <!--"table table-sm"> -->
+      <table class="table table-sm">
         <thead>
           <tr>
-            <th>Numero Volume/Periodo</th>
-            <th>Data Verbale</th>
-            <th>Ordine del giorno</th>
-            <th>Pagina</th>
-            <th>Testo</th>
-            <th>Luoghi</th>
-            <th>Note</th>
+            <th>Data verbale</th>
+            <th>Anno verbale</th>
+            <th>Utente</th>
+            <th>Status</th>
+            <th>Tool</th>
           </tr>
         </thead>
         <tbody >
           <tr *ngFor="let verbale of filteredVerbali$ | async">
-            <td>Vol. <b>{{verbale.volume_num_registro}}</b> del {{verbale.volume_periodo}}</td>
-            <td>{{verbale.verbale_data| date: 'dd/MM/yyyy'}}</td>
-            <td>{{verbale.odg_numero}}</td>
-            <td>{{verbale.pag_numero}}</td>
-            <td>{{verbale.cont_testo}}</td>
-            <td>{{verbale.cont_luoghi}}</td>
-            <td>{{verbale.cont_note}}</td>
+            <td>{{verbale.verbale_data}}</td>
+            <td>{{verbale.verbale_periodo}}</td>
+            <td>{{verbale.verbale_utente}}</td>
+            <td>
+              <span class="badge badge-success">COMPLETO</span>
+            </td>
+            <td>
+                <div class="row">
+                <a [routerLink]="['/']"><div class="col-2 text-success"><i class="fa fa-pencil-square-o fa-lg"></i></div></a>
+                <a [routerLink]="['/']"><div class="col-2 text-danger"><i class="fa fa-trash fa-lg"></i></div></a>
+                </div>
+            </td>
           </tr>
+
         </tbody>
       </table>
 
@@ -160,7 +160,7 @@ export class VvDatatableComponent implements OnInit {
   [collapse]="isCollapsed" */
 
 
-
+  
   isCollapsed: boolean = false;
 
   collapsed(event: any): void {
@@ -184,14 +184,10 @@ export class VvDatatableComponent implements OnInit {
             )
           )
 
-
-//console.log(this.isCollapsed)
-
   }
 
 
-
-pageChanged(event: PageChangedEvent): void {
+  pageChanged(event: PageChangedEvent): void {
     console.log(event);
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;

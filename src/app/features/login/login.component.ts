@@ -7,11 +7,11 @@ import { Router } from '@angular/router';
   selector: 'app-dashboard',
   templateUrl: 'login.component.html'
 })
-export class LoginComponent { 
+export class LoginComponent {
 
   formLogin: FormGroup;
   messErrorLogin: string;
-  
+
 
 
   constructor(private fb:FormBuilder, private srv:VerbaliService, private router:Router){
@@ -33,7 +33,7 @@ export class LoginComponent {
               .subscribe(
                   (res) =>  this.router.navigateByUrl('/dashboard'),
                   (e) => this.messErrorLogin = "Nome utente o password errati... riprovare!"
-              ); 
+              );
       }else{
         this.messErrorLogin = "Digitare le credenziali!";
       }
