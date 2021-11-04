@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith,filter,find } from 'rxjs/operators';
 import {  Observable } from 'rxjs';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { VerbaliService } from '../../../../../services/verbali.service';
+import { formatDate } from '@angular/common';
 
 
 
@@ -45,41 +46,53 @@ import { VerbaliService } from '../../../../../services/verbali.service';
 
     <div class="card">
 
-    <div class="card-body">
+    <div class="card-body"
+        (collapsed)="collapsed($event)"
+        (expanded)="expanded($event)"
+        [collapse]="!isCollapsed">
+
     <form [formGroup]="formAvanzata">
       <div class="row">
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-3">
           <label for="volumePeriodo">Volume-Periodo</label>
           <select class="form-control" id="volumePeriodo" name="volumePeriodo" formControlName="volumePeriodo" >
-          <option>Tutti</option>
+            <option value= "">Tutti</option>
             <option>14</option>
             <option>1</option>
             <option>2</option>
           </select>
         </div>
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-3">
           <label for="dataVerbale">Data Verbale</label>
           <select class="form-control" id="dataVerbale" name="dataVerbale" formControlName="dataVerbale" >
+          <option value= "">Tutti</option>
             <option>12/04/1944</option>
             <option>17/03/1906</option>
             <option>10/02/1906</option>
           </select>
         </div>
-        <div class="form-group col-sm-4">
+        <div class="form-group col-sm-3">
           <label for="odg">Ordine del giorno</label>
           <select class="form-control" id="odg" name="odg" formControlName="odg">
+          <option value= "">Tutti</option>
             <option>1</option>
             <option>2</option>
             <option>3</option>
           </select>
         </div>
-<!--         <div class="col-sm-4">
-          <div class="form-group">
-            <label for="cvv">CVV/CVC</label>
-            <input type="text" class="form-control" id="cvv" placeholder="123">
-          </div>
-        </div>
--->
+                <!--         <div class="col-sm-4">
+                          <div class="form-group">
+                            <label for="cvv">CVV/CVC</label>
+                            <input type="text" class="form-control" id="cvv" placeholder="123">
+                          </div>
+                        </div>
+                -->
+                <div class="form-group form-actions col-sm-3">
+                <button type="submit" (click)="filtra('0')" class="btn btn-sm btn-success form-control">Filtra</button>
+              <button type="submit" (click)="filtra('1')" class="btn btn-sm btn-danger  form-control">Reset</button>
+
+            </div>
+
       </div>
     </form>
     </div>
@@ -90,19 +103,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
     </button>
 
 
-    <pre>
-    <code>
-      status- <b>{{ formAvanzata.status }}</b>
-      valid- <b>{{ formAvanzata.valid }}</b>
-      invalid- <b>{{ formAvanzata.invalid }}</b>
-      pristine- <b>{{ formAvanzata.pristine }}</b>
-      dirty- <b>{{ formAvanzata.dirty }}</b>
-      touched- <b>{{ formAvanzata.touched }}</b>
-      untouched- <b>{{ formAvanzata.untouched }}</b>
-    </code>
-  </pre>
-
-  <pre><code>{{ formAvanzata.value | json }}</code></pre>
+  <!--<pre><code>{{ formAvanzata.value | json }}</code></pre>-->
 
 
   </div>
@@ -145,7 +146,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
         </div>
       </div>
 
-      <!-- <dafne-vv-addverbale-modal (emitFromVerbale)="datiVerbale($event)"></dafne-vv-addverbale-modal> -->
+
 
     </div>
   </div>
@@ -153,7 +154,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
   `,
   styleUrls: ['./vv-datatable.component.css']
 })
-export class VvDatatableComponent implements OnInit {
+export class VvDatatableComponent implements OnInit{
 
   @Input('dataSource') dataSource: any;
   @Output() emitFromDatatable: EventEmitter<any> = new EventEmitter<any>();
@@ -165,28 +166,23 @@ export class VvDatatableComponent implements OnInit {
   formAvanzata: FormGroup;
   filteredVerbali$: Observable<any[]>;
 
+  filtro: any;
+
+
+
   constructor(private formBuilder: FormBuilder, private srv: VerbaliService) {}
 
-
-
-/*   (collapsed)="collapsed($event)"
-  (expanded)="expanded($event)"
-  [collapse]="isCollapsed" */
-
-
-
   isCollapsed: boolean = false;
+    collapsed(event: any): void {
+      console.log(event);
+    }
+      expanded(event: any): void {
+        console.log(event);
+      }
 
-  collapsed(event: any): void {
-     console.log(event);
-  }
 
-  expanded(event: any): void {
-     console.log(event);
-  }
 
   ngOnInit(): void {
-
     this.formGroup = this.formBuilder.group({ filter: [''] });
 
         this.filteredVerbali$ =
@@ -204,12 +200,45 @@ export class VvDatatableComponent implements OnInit {
             dataVerbale: [''],
             odg: ['']
           });
+  }
 
 
-//console.log(this.isCollapsed)
+filtra(reset){
+  if(reset === '1'){
+    //this.formAvanzata.reset();
+     this.formAvanzata = this.formBuilder.group({
+      volumePeriodo: [''],
+      dataVerbale: [''],
+      odg: ['']
+    });
+
+    this.formGroup.reset();
 
   }
 
+  let volumePeriodo = reset === '0' ? this.formAvanzata.controls['volumePeriodo'].value : ""
+
+  let dataConvert = this.formAvanzata.controls['dataVerbale'].value
+  let dataVerbale = reset === '0' ? dataConvert.split("/").reverse().join("-"): ""
+
+  let odg = reset === '0' ? this.formAvanzata.controls['odg'].value: ""
+  let cerca = reset === '0' ? this.formGroup.controls['filter'].value: ""
+
+
+  this.filteredVerbali$ = this.srv.getVerbali().pipe(
+      map(
+        dati =>
+          dati.filter((verbali:any) =>
+            (volumePeriodo ? verbali.volume_num_registro === volumePeriodo : verbali.volume_num_registro === verbali.volume_num_registro) &&
+            (dataVerbale ? verbali.verbale_data === dataVerbale : verbali.verbale_data === verbali.verbale_data) &&
+            (odg ? verbali.odg_numero === odg : verbali.odg_numero === verbali.odg_numero)
+          )
+      ),
+      map(search => this.search(search, cerca))
+  )
+  this.filteredVerbali$.subscribe()
+
+}
 
 
 pageChanged(event: PageChangedEvent): void {
@@ -220,6 +249,7 @@ pageChanged(event: PageChangedEvent): void {
   }
 
   search(array, keyword) {
+
     const regExp = new RegExp(keyword,"gi");
     const check = obj => {
       if (obj !== null && typeof obj === "object") { return Object.values(obj).some(check) }
@@ -227,12 +257,6 @@ pageChanged(event: PageChangedEvent): void {
       return (typeof obj === "string" || typeof obj === "number") && regExp.test(''+obj);
     }
     return array.filter(check);
-  }
-
-
-   datiVerbale($event){
-    console.log("dati emessi dal datatable: ",$event);
-    this.emitFromDatatable.emit($event);
   }
 
 

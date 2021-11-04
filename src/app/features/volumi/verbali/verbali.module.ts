@@ -9,6 +9,7 @@ import { VvListComponent } from './vv-list/vv-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { VerbaliService } from '../../../services/verbali.service';
 import { VvDatatableComponent } from './components/vv-datatable/vv-datatable.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 import { PaginationModule } from 'ngx-bootstrap/pagination';
@@ -25,6 +26,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CommonModule,
     HttpClientModule,
     VerbaliRoutingModule,
+    CollapseModule.forRoot(),
     ModalModule.forRoot(),
     PaginationModule.forRoot()
 

@@ -35,7 +35,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
             placeholder="Ricerca nei dati..."
             formControlName="filter"
             >
-            
+
         </div>
       </div>
     </div>
@@ -44,7 +44,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
 
 
     <div class="card">
-           
+
     <div class="card-body">
     <form>
       <div class="row">
@@ -77,9 +77,11 @@ import { VerbaliService } from '../../../../../services/verbali.service';
             <label for="cvv">CVV/CVC</label>
             <input type="text" class="form-control" id="cvv" placeholder="123">
           </div>
-        </div> 
+        </div>
 -->
-      </div>    
+
+
+      </div>
     </form>
     </div>
 
@@ -160,7 +162,7 @@ export class VvDatatableComponent implements OnInit {
   [collapse]="isCollapsed" */
 
 
-  
+
   isCollapsed: boolean = false;
 
   collapsed(event: any): void {
