@@ -103,11 +103,10 @@ import { formatDate } from '@angular/common';
     </button>
 
 
-  <!--<pre><code>{{ formAvanzata.value | json }}</code></pre>-->
+  <pre><code>{{ formAvanzata.value | json }}</code></pre>
 
 
   </div>
-
 
       <table class="table table-bordered table-striped table-sm">
       <!--"table table-sm"> -->
@@ -120,6 +119,8 @@ import { formatDate } from '@angular/common';
             <th>Testo</th>
             <th>Luoghi</th>
             <th>Note</th>
+            <th>Indice</th>
+            <th>Volume</th>
           </tr>
         </thead>
         <tbody >
@@ -131,6 +132,8 @@ import { formatDate } from '@angular/common';
             <td>{{verbale.cont_testo}}</td>
             <td>{{verbale.cont_luoghi}}</td>
             <td>{{verbale.cont_note}}</td>
+            <td><i class="fa fa-file-pdf-o fa-lg text-danger"></i></td>
+            <td><i class="fa fa-file-pdf-o fa-lg text-danger"></i></td>
           </tr>
         </tbody>
       </table>

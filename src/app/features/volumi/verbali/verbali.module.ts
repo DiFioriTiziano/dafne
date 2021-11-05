@@ -11,7 +11,6 @@ import { VerbaliService } from '../../../services/verbali.service';
 import { VvDatatableComponent } from './components/vv-datatable/vv-datatable.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
-
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { VvAddverbaleModalComponent } from './components/vv-addverbale-modal/vv-addverbale-modal.component';
 
