@@ -38,6 +38,10 @@ API_URL: string;
 }
 
 
+distinct_verbali(field:string) {
+  return this.http_client.post<any>(`${this.API_URL}/verbali/dist_verbali/`,JSON.stringify(field));
+}
+
 filtroAvanzato(data:any):Observable<any> {
   console.log("dal service: ", data);
   return this.http_client.post<any>(`${this.API_URL}/verbali/filtroAvanzato/`,JSON.stringify(data));

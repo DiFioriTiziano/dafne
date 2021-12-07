@@ -56,28 +56,22 @@ import { formatDate } from '@angular/common';
         <div class="form-group col-sm-3">
           <label for="volumePeriodo">Volume-Periodo</label>
           <select class="form-control" id="volumePeriodo" name="volumePeriodo" formControlName="volumePeriodo" >
-            <option value= "">Tutti</option>
-            <option>14</option>
-            <option>1</option>
-            <option>2</option>
+            <option value="">Tutti</option>
+            <option *ngFor="let volPeriodo of volume" value="{{volPeriodo.volume_num_registro}}" >{{volPeriodo.volume_num_registro}}</option>
           </select>
         </div>
         <div class="form-group col-sm-3">
           <label for="dataVerbale">Data Verbale</label>
           <select class="form-control" id="dataVerbale" name="dataVerbale" formControlName="dataVerbale" >
           <option value= "">Tutti</option>
-            <option>12/04/1944</option>
-            <option>17/03/1906</option>
-            <option>10/02/1906</option>
+            <option *ngFor="let data_verbale of dataVerbale" value="{{data_verbale.verbale_data}}" >{{data_verbale.verbale_data}}</option>
           </select>
         </div>
         <div class="form-group col-sm-3">
           <label for="odg">Ordine del giorno</label>
           <select class="form-control" id="odg" name="odg" formControlName="odg">
           <option value= "">Tutti</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
+          <option *ngFor="let odgiorno of odg" value="{{odgiorno.odg_numero}}" >{{odgiorno.odg_numero}}</option>
           </select>
         </div>
                 <!--         <div class="col-sm-4">
@@ -132,8 +126,8 @@ import { formatDate } from '@angular/common';
             <td>{{verbale.cont_testo}}</td>
             <td>{{verbale.cont_luoghi}}</td>
             <td>{{verbale.cont_note}}</td>
-            <td><i class="fa fa-file-pdf-o fa-lg text-danger"></i></td>
-            <td><i class="fa fa-file-pdf-o fa-lg text-danger"></i></td>
+            <td><a *ngIf='verbale.volume_nome_file_indice' href="{{verbale.volume_nome_file_indice}}" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></td>
+            <td><a *ngIf='verbale.volume_nome_file_integrale' href="{{verbale.volume_nome_file_integrale}}#page={{verbale.pag_numero}}" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></td>
           </tr>
         </tbody>
       </table>
@@ -160,6 +154,12 @@ import { formatDate } from '@angular/common';
 export class VvDatatableComponent implements OnInit{
 
   @Input('dataSource') dataSource: any;
+
+  @Input('volume') volume: any;
+  @Input('dataVerbale') dataVerbale: any;
+  @Input('odg') odg: any;
+
+
   @Output() emitFromDatatable: EventEmitter<any> = new EventEmitter<any>();
 
   currentPage: number = 4;
@@ -186,6 +186,7 @@ export class VvDatatableComponent implements OnInit{
 
 
   ngOnInit(): void {
+
     this.formGroup = this.formBuilder.group({ filter: [''] });
 
         this.filteredVerbali$ =
