@@ -11,7 +11,7 @@ import { VerbaliService } from '../../../services/verbali.service';
 import { VvDatatableComponent } from './components/vv-datatable/vv-datatable.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
-import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { PaginationModule, PaginationConfig } from 'ngx-bootstrap/pagination';
 import { VvAddverbaleModalComponent } from './components/vv-addverbale-modal/vv-addverbale-modal.component';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -30,6 +30,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     PaginationModule.forRoot()
 
   ],
-  providers: [VerbaliService]
+  providers: [VerbaliService,
+    PaginationConfig
+  ]
 })
 export class VerbaliModule { }

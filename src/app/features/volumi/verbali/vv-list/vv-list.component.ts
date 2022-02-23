@@ -32,7 +32,8 @@ export class VvListComponent implements OnInit {
 
   constructor(private srv:VerbaliService) {
 
-    this.srv.distinct_verbali('volume_num_registro').subscribe((resp)=> {this.volume = resp});
+  //this.srv.distinct_verbali('volume_num_registro').subscribe((resp)=> {this.volume = resp});
+    this.srv.group_periodi().subscribe((resp)=> {this.volume = resp});
     this.srv.distinct_verbali('verbale_data').subscribe((resp)=> {this.dataVerbale = resp});
     this.srv.distinct_verbali('odg_numero').subscribe((resp)=> {this.odg = resp});
 

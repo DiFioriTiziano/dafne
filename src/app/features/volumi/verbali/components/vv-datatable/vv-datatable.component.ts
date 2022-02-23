@@ -57,7 +57,7 @@ import { formatDate } from '@angular/common';
           <label for="volumePeriodo">Volume-Periodo</label>
           <select class="form-control" id="volumePeriodo" name="volumePeriodo" formControlName="volumePeriodo" >
             <option value="">Tutti</option>
-            <option *ngFor="let volPeriodo of volume" value="{{volPeriodo.volume_num_registro}}" >{{volPeriodo.volume_num_registro}}</option>
+            <option *ngFor="let volPeriodo of volume" value="{{volPeriodo.volume_num_registro}}" >{{volPeriodo.volume_num_registro}} - {{volPeriodo.volume_periodo}}</option>
           </select>
         </div>
         <div class="form-group col-sm-3">
@@ -117,18 +117,20 @@ import { formatDate } from '@angular/common';
             <th>Volume</th>
           </tr>
         </thead>
-        <tbody >
-          <tr *ngFor="let verbale of filteredVerbali$ | async">
+        <tbody *ngIf="dataList">
+
+          <tr *ngFor="let verbale of dataList">
             <td>Vol. <b>{{verbale.volume_num_registro}}</b> del {{verbale.volume_periodo}}</td>
             <td>{{verbale.verbale_data| date: 'dd/MM/yyyy'}}</td>
             <td>{{verbale.odg_numero}}</td>
-            <td>{{verbale.pag_numero}}</td>
+            <td>{{verbale.odg_pag_numero}}</td>
             <td>{{verbale.cont_testo}}</td>
             <td>{{verbale.cont_luoghi}}</td>
             <td>{{verbale.cont_note}}</td>
             <td><a *ngIf='verbale.volume_nome_file_indice' href="{{verbale.volume_nome_file_indice}}" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></td>
             <td><a *ngIf='verbale.volume_nome_file_integrale' href="{{verbale.volume_nome_file_integrale}}#page={{verbale.pag_numero}}" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></td>
           </tr>
+
         </tbody>
       </table>
 
@@ -136,13 +138,34 @@ import { formatDate } from '@angular/common';
       <div class="row">
         <div class="col-xs-12 col-12">
           <pagination
-            [totalItems]="22"
+            [totalItems]="this.dataSource.data.length"
+            [itemsPerPage]="100"
             (numPages)="smallnumPages = $event"
             (pageChanged)="pageChanged($event)">
           </pagination>
         </div>
       </div>
 
+      <div class="row">
+      <div class="col-xs-12 col-12">
+          <pagination
+              [totalItems]="this.dataList.length"
+              [itemsPerPage]="100"
+              [(ngModel)]= "bigCurrentPage"
+              [maxSize]="maxSize"
+              class="pagination-sm"
+              previousText="&lsaquo;"
+              nextText="&rsaquo;"
+              firstText="&laquo;"
+              lastText="&raquo;"
+              [boundaryLinks]="true"
+              [rotate]="false"
+              (numPages)="smallnumPages = $event"
+              (pageChanged)="pageChanged($event)"
+              >
+            </pagination>
+          </div>
+      </div>
 
 
     </div>
@@ -155,6 +178,7 @@ export class VvDatatableComponent implements OnInit{
 
   @Input('dataSource') dataSource: any;
 
+
   @Input('volume') volume: any;
   @Input('dataVerbale') dataVerbale: any;
   @Input('odg') odg: any;
@@ -162,14 +186,21 @@ export class VvDatatableComponent implements OnInit{
 
   @Output() emitFromDatatable: EventEmitter<any> = new EventEmitter<any>();
 
-  currentPage: number = 4;
-  smallnumPages: number = 2;
+
+  smallnumPages: number = 5;
 
   formGroup: FormGroup;
   formAvanzata: FormGroup;
   filteredVerbali$: Observable<any[]>;
+  dataPagination:any;
+
+  dataList: any;
 
   filtro: any;
+
+  //pagination var
+  maxSize = 20;
+  bigCurrentPage = 1;
 
 
 
@@ -186,17 +217,21 @@ export class VvDatatableComponent implements OnInit{
 
 
   ngOnInit(): void {
-
+    //this.dataList = this.dataSource.data.slice(0, 100);
+    this.dataList = this.dataSource.data;
+console.log("ngoninit ",this.dataList);
+    //this.dataSearch = this.dataSource.data;
     this.formGroup = this.formBuilder.group({ filter: [''] });
 
-        this.filteredVerbali$ =
+/*         this.filteredVerbali$ =
           this.formGroup.get('filter').valueChanges.pipe(startWith("")).pipe(
             map((val) =>
               !val
-              ? this.dataSource.data
+              ? this.dataSearch.slice(0, 100)
               : this.search(this.dataSource.data, val)
             )
-          )
+          ) */
+
 
 
           this.formAvanzata = this.formBuilder.group({
@@ -249,7 +284,9 @@ pageChanged(event: PageChangedEvent): void {
     console.log(event);
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
-    this.dataSource.data = this.dataSource.data.slice(startItem, endItem);
+   // this.dataPagination = this.dataSource.data.slice(startItem, endItem);
+
+    this.dataList = this.dataSource.data.slice(startItem, endItem);
   }
 
   search(array, keyword) {

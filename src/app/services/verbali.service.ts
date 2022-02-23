@@ -37,6 +37,10 @@ API_URL: string;
     ) */
 }
 
+group_periodi(): Observable<any> {
+  return this.http_client.get<any>(`${this.API_URL}/verbali/group_periodi/`)
+}
+
 
 distinct_verbali(field:string) {
   return this.http_client.post<any>(`${this.API_URL}/verbali/dist_verbali/`,JSON.stringify(field));
