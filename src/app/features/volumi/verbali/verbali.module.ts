@@ -20,7 +20,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
-
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [VerbaliComponent, VvListComponent, VvDatatableComponent, VvAddverbaleModalComponent],
@@ -35,7 +35,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     PaginationModule.forRoot(),
     MatTableModule,
     MatSortModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatInputModule
 
   ],
   providers: [VerbaliService,

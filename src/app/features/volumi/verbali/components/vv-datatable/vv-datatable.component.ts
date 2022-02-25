@@ -10,101 +10,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
 
-
 @Component({
   selector: 'dafne-vv-datatable',
   template: `
-<!--
-    <table mat-table [dataSource]="dataLista" class="mat-elevation-z8" matSort>
-
-    <ng-container matColumnDef="Numero Volume/Periodo">
-        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Numero Volume/Periodo </th>
-        <td mat-cell *matCellDef="let element"> Vol. <b>{{element.volume_num_registro}}</b>  del {{element.volume_periodo}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Data Verbale">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Verbale </th>
-        <td mat-cell *matCellDef="let element"> {{element.verbale_data | date: 'dd/MM/yyyy'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Ordine del giorno">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ogd </th>
-        <td mat-cell *matCellDef="let element"> {{element.odg_numero}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Pagina">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Pagina </th>
-        <td mat-cell *matCellDef="let element"> {{element.odg_pag_numero}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Testo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Testo </th>
-        <td mat-cell *matCellDef="let element"> {{element.cont_testo}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Luoghi">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Luoghi </th>
-        <td mat-cell *matCellDef="let element"> {{element.cont_luoghi}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="Note">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Note </th>
-        <td mat-cell *matCellDef="let element"> {{element.cont_note}} </td>
-    </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    </table >
-
-    <mat-paginator [pageSizeOptions]="[10, 30, 50]" showFirstLastButtons> </mat-paginator>
--->
-
-<mat-table [dataSource]="dataLista" class="mat-elevation-z8" matSort>
-
-<ng-container matColumnDef="Numero Volume/Periodo">
-    <mat-header-cell *matHeaderCellDef  > Numero Volume/Periodo </mat-header-cell>
-    <mat-cell *matCellDef="let element"> Vol. <b>{{element.volume_num_registro}}</b>  del {{element.volume_periodo}} </mat-cell>
-</ng-container>
-
-<ng-container matColumnDef="Data Verbale">
-    <mat-header-cell *matHeaderCellDef > Data Verbale </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.verbale_data | date: 'dd/MM/yyyy'}} </mat-cell>
-</ng-container>
-
-<ng-container matColumnDef="Ordine del giorno">
-    <mat-header-cell *matHeaderCellDef > Ogd </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.odg_numero}} </mat-cell>
-</ng-container>
-
-<ng-container matColumnDef="Pagina">
-    <mat-header-cell *matHeaderCellDef > Pagina </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.odg_pag_numero}} </mat-cell>
-</ng-container>
-
-<ng-container matColumnDef="Testo">
-    <mat-header-cell *matHeaderCellDef > Testo </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.cont_testo}} </mat-cell>
-</ng-container>
-
-<ng-container matColumnDef="Luoghi">
-    <mat-header-cell *matHeaderCellDef > Luoghi </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.cont_luoghi}} </mat-cell>
-</ng-container>
-
-<ng-container matColumnDef="Note">
-    <mat-header-cell *matHeaderCellDef > Note </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.cont_note}} </mat-cell>
-</ng-container>
-
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-
-</mat-table >
-
-<mat-paginator [pageSizeOptions]="[10, 30, 50]" showFirstLastButtons> </mat-paginator>
-
-<p></p>
   <div class="col-sm">
   <div class="card card-accent-primary">
     <div class="card-header">
@@ -186,16 +94,79 @@ import { MatSort } from '@angular/material/sort';
     </form>
     </div>
 
-
     <button type="button" class="btn btn-primary" (click)="isCollapsed = !isCollapsed">
       Ricerca avanzata
     </button>
-
-
   <pre><code>{{ formAvanzata.value | json }}</code></pre>
 
-
   </div>
+
+  <mat-form-field>
+  <mat-label><b>Ricerca nei dati...</b></mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="...ricerca...">
+  </mat-form-field>
+
+  <!--class="mat-elevation-z8" -->
+
+  <mat-table [dataSource]="dataLista" class="mat-elevation-z8" style="overflow-x:auto;" matSort>
+
+  <ng-container matColumnDef="Numero Volume/Periodo">
+      <mat-header-cell *matHeaderCellDef  > Numero Volume/Periodo </mat-header-cell>
+      <mat-cell *matCellDef="let element"> Vol.&nbsp;<b>{{element.volume_num_registro}}</b>&nbsp;del {{element.volume_periodo}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Data Verbale">
+      <mat-header-cell *matHeaderCellDef  > Data Verbale </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.verbale_data | date: 'dd/MM/yyyy'}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Ordine del giorno">
+      <mat-header-cell *matHeaderCellDef  > Ogd </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.odg_numero}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Pagina">
+      <mat-header-cell *matHeaderCellDef > Pagina </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.odg_pag_numero}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Testo">
+      <mat-header-cell *matHeaderCellDef > Testo </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.cont_testo}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Luoghi">
+      <mat-header-cell *matHeaderCellDef > Luoghi </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.cont_luoghi}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Note">
+      <mat-header-cell *matHeaderCellDef > Note </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.cont_note}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Indice">
+    <mat-header-cell *matHeaderCellDef > Indice </mat-header-cell>
+    <mat-cell *matCellDef="let element"><a *ngIf='element.volume_nome_file_indice' href="{{element.volume_nome_file_indice}}" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Volume">
+    <mat-header-cell *matHeaderCellDef > Volume </mat-header-cell>
+    <mat-cell *matCellDef="let element"><a *ngIf='element.volume_nome_file_integrale' href="{{element.volume_nome_file_integrale}}#page={{element.pag_numero}}" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
+  </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+  </mat-table >
+
+  <mat-paginator [pageSizeOptions]="[10, 30, 50]" showFirstLastButtons> </mat-paginator>
+
+
+
+
+
+
 
       <table class="table table-bordered table-striped table-sm">
       <!--"table table-sm"> -->
@@ -229,7 +200,7 @@ import { MatSort } from '@angular/material/sort';
         </tbody>
       </table>
 
-
+<!--
       <div class="row">
         <div class="col-xs-12 col-12">
           <pagination
@@ -240,28 +211,7 @@ import { MatSort } from '@angular/material/sort';
           </pagination>
         </div>
       </div>
-
-      <div class="row">
-      <div class="col-xs-12 col-12">
-          <pagination
-              [totalItems]="this.dataList.length"
-              [itemsPerPage]="100"
-              [(ngModel)]= "bigCurrentPage"
-              [maxSize]="maxSize"
-              class="pagination-sm"
-              previousText="&lsaquo;"
-              nextText="&rsaquo;"
-              firstText="&laquo;"
-              lastText="&raquo;"
-              [boundaryLinks]="true"
-              [rotate]="false"
-              (numPages)="smallnumPages = $event"
-              (pageChanged)="pageChanged($event)"
-              >
-            </pagination>
-          </div>
-      </div>
-
+-->
 
     </div>
   </div>
@@ -271,7 +221,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class VvDatatableComponent implements OnInit{
 
-  displayedColumns: string[] = ['Numero Volume/Periodo','Data Verbale','Ordine del giorno','Pagina','Testo','Luoghi','Note'];
+  displayedColumns: string[] = ['Numero Volume/Periodo','Data Verbale','Ordine del giorno','Pagina','Testo','Luoghi','Note','Indice','Volume'];
   dataLista: MatTableDataSource<any> ;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -284,7 +234,7 @@ export class VvDatatableComponent implements OnInit{
   @Input('odg') odg: any;
   @Output() emitFromDatatable: EventEmitter<any> = new EventEmitter<any>();
 
-  smallnumPages: number = 5;
+  //smallnumPages: number = 5;
 
   formGroup: FormGroup;
   formAvanzata: FormGroup;
@@ -294,9 +244,6 @@ export class VvDatatableComponent implements OnInit{
   dataList: any;
   filtro: any;
 
-  //pagination var
-  maxSize = 20;
-  bigCurrentPage = 1;
 
   constructor(private formBuilder: FormBuilder, private srv: VerbaliService) {
 
@@ -320,13 +267,8 @@ export class VvDatatableComponent implements OnInit{
       this.dataLista.sort = this.sort;
     }
 
-
-    console.log("paginator ",this.dataLista.paginator);
-
     this.dataList = this.dataSource.data.slice(0, 5);
-    //this.dataList = this.dataSource.data;
 
-    //this.dataSearch = this.dataSource.data;
     this.formGroup = this.formBuilder.group({ filter: [''] });
 
 /*         this.filteredVerbali$ =
@@ -346,6 +288,14 @@ export class VvDatatableComponent implements OnInit{
             odg: ['']
           });
   }
+
+
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+      this.dataLista.filter = filterValue.trim().toLowerCase();
+  }
+
 
 
 filtra(reset){
