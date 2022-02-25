@@ -1,24 +1,119 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { map, startWith,filter,find } from 'rxjs/operators';
 import {  Observable } from 'rxjs';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { VerbaliService } from '../../../../../services/verbali.service';
-import { formatDate } from '@angular/common';
 
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 
 
 @Component({
   selector: 'dafne-vv-datatable',
   template: `
+<!--
+    <table mat-table [dataSource]="dataLista" class="mat-elevation-z8" matSort>
 
+    <ng-container matColumnDef="Numero Volume/Periodo">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Numero Volume/Periodo </th>
+        <td mat-cell *matCellDef="let element"> Vol. <b>{{element.volume_num_registro}}</b>  del {{element.volume_periodo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Data Verbale">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Data Verbale </th>
+        <td mat-cell *matCellDef="let element"> {{element.verbale_data | date: 'dd/MM/yyyy'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Ordine del giorno">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ogd </th>
+        <td mat-cell *matCellDef="let element"> {{element.odg_numero}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Pagina">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Pagina </th>
+        <td mat-cell *matCellDef="let element"> {{element.odg_pag_numero}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Testo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Testo </th>
+        <td mat-cell *matCellDef="let element"> {{element.cont_testo}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Luoghi">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Luoghi </th>
+        <td mat-cell *matCellDef="let element"> {{element.cont_luoghi}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Note">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Note </th>
+        <td mat-cell *matCellDef="let element"> {{element.cont_note}} </td>
+    </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table >
+
+    <mat-paginator [pageSizeOptions]="[10, 30, 50]" showFirstLastButtons> </mat-paginator>
+-->
+
+<mat-table [dataSource]="dataLista" class="mat-elevation-z8" matSort>
+
+<ng-container matColumnDef="Numero Volume/Periodo">
+    <mat-header-cell *matHeaderCellDef  > Numero Volume/Periodo </mat-header-cell>
+    <mat-cell *matCellDef="let element"> Vol. <b>{{element.volume_num_registro}}</b>  del {{element.volume_periodo}} </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="Data Verbale">
+    <mat-header-cell *matHeaderCellDef > Data Verbale </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.verbale_data | date: 'dd/MM/yyyy'}} </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="Ordine del giorno">
+    <mat-header-cell *matHeaderCellDef > Ogd </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.odg_numero}} </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="Pagina">
+    <mat-header-cell *matHeaderCellDef > Pagina </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.odg_pag_numero}} </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="Testo">
+    <mat-header-cell *matHeaderCellDef > Testo </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.cont_testo}} </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="Luoghi">
+    <mat-header-cell *matHeaderCellDef > Luoghi </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.cont_luoghi}} </mat-cell>
+</ng-container>
+
+<ng-container matColumnDef="Note">
+    <mat-header-cell *matHeaderCellDef > Note </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.cont_note}} </mat-cell>
+</ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+</mat-table >
+
+<mat-paginator [pageSizeOptions]="[10, 30, 50]" showFirstLastButtons> </mat-paginator>
+
+<p></p>
   <div class="col-sm">
   <div class="card card-accent-primary">
     <div class="card-header">
       Elenco Verbali
     </div>
+
     <div class="card-body">
+
+<br>
 
     <form [formGroup]="formGroup">
 
@@ -176,16 +271,18 @@ import { formatDate } from '@angular/common';
 })
 export class VvDatatableComponent implements OnInit{
 
+  displayedColumns: string[] = ['Numero Volume/Periodo','Data Verbale','Ordine del giorno','Pagina','Testo','Luoghi','Note'];
+  dataLista: MatTableDataSource<any> ;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+
   @Input('dataSource') dataSource: any;
-
-
   @Input('volume') volume: any;
   @Input('dataVerbale') dataVerbale: any;
   @Input('odg') odg: any;
-
-
   @Output() emitFromDatatable: EventEmitter<any> = new EventEmitter<any>();
-
 
   smallnumPages: number = 5;
 
@@ -195,16 +292,15 @@ export class VvDatatableComponent implements OnInit{
   dataPagination:any;
 
   dataList: any;
-
   filtro: any;
 
   //pagination var
   maxSize = 20;
   bigCurrentPage = 1;
 
+  constructor(private formBuilder: FormBuilder, private srv: VerbaliService) {
 
-
-  constructor(private formBuilder: FormBuilder, private srv: VerbaliService) {}
+  }
 
   isCollapsed: boolean = false;
     collapsed(event: any): void {
@@ -217,9 +313,19 @@ export class VvDatatableComponent implements OnInit{
 
 
   ngOnInit(): void {
-    //this.dataList = this.dataSource.data.slice(0, 100);
-    this.dataList = this.dataSource.data;
-console.log("ngoninit ",this.dataList);
+    this.dataLista = new  MatTableDataSource<any>(this.dataSource.data);
+
+    if(this.dataLista){
+      this.dataLista.paginator = this.paginator;
+      this.dataLista.sort = this.sort;
+    }
+
+
+    console.log("paginator ",this.dataLista.paginator);
+
+    this.dataList = this.dataSource.data.slice(0, 5);
+    //this.dataList = this.dataSource.data;
+
     //this.dataSearch = this.dataSource.data;
     this.formGroup = this.formBuilder.group({ filter: [''] });
 

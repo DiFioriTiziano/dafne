@@ -16,6 +16,11 @@ import { VvAddverbaleModalComponent } from './components/vv-addverbale-modal/vv-
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 
+// for dtata tabler
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
+
 
 @NgModule({
   declarations: [VerbaliComponent, VvListComponent, VvDatatableComponent, VvAddverbaleModalComponent],
@@ -27,7 +32,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     VerbaliRoutingModule,
     CollapseModule.forRoot(),
     ModalModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
 
   ],
   providers: [VerbaliService,

@@ -21,6 +21,8 @@ import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './features/login/login.component';
 import { RegisterComponent } from './views/register/register.component';
 
+
+
 const APP_CONTAINERS = [
   DefaultLayoutComponent
 ];
@@ -46,6 +48,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 
+
 @NgModule({
   imports: [
     HttpClientModule,
@@ -62,6 +65,7 @@ import { HttpClientModule } from '@angular/common/http';
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
     TabsModule.forRoot(),
+
 
 
   ],
