@@ -8,9 +8,10 @@ import { Observable } from 'rxjs';
 export class VerbaliService {
 
 API_URL: string;
+API_URL_AUTH: string;
 
   constructor(private http_client:HttpClient) {
-    //this.API_URL = 'http://interno.aterroma.it/dafne/api';
+    this.API_URL_AUTH = 'http://interno.aterroma.it/dafne/api';
     this.API_URL = 'http://gcdoc.aterroma.it/dafne/api';
   }
 
@@ -27,7 +28,7 @@ API_URL: string;
 
   login(user:string, password:string ) {
 
-    return this.http_client.post<any>(`${this.API_URL}/auth/login`,{user, password})
+    return this.http_client.post<any>(`${this.API_URL_AUTH}/proxy.php`,{user, password})
 /*     return this.http_client.post<any>(`${this.API_URL}/verbali/login`,{user, password}).pipe(
        tap(res =>  {
          this.setSession(res,user),

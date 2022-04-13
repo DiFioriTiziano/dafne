@@ -23,6 +23,8 @@ import { MatSort } from '@angular/material/sort';
 
 <br>
 
+<!-- COMMENTO PARTE RICERCA AVANZATA
+
     <form [formGroup]="formGroup">
 
       <div class="form-group row">
@@ -64,7 +66,7 @@ import { MatSort } from '@angular/material/sort';
           </select>
         </div>
         <div class="form-group col-sm-3">
-          <label for="dataVerbale">Data Verbale</label>
+          <label for="dataVerbale">DataVerbale</label>
           <select class="form-control" id="dataVerbale" name="dataVerbale" formControlName="dataVerbale" >
           <option value= "">Tutti</option>
             <option *ngFor="let data_verbale of dataVerbale" value="{{data_verbale.verbale_data}}" >{{data_verbale.verbale_data}}</option>
@@ -83,7 +85,7 @@ import { MatSort } from '@angular/material/sort';
                             <input type="text" class="form-control" id="cvv" placeholder="123">
                           </div>
                         </div>
-                -->
+                -- >
                 <div class="form-group form-actions col-sm-3">
                 <button type="submit" (click)="filtra('0')" class="btn btn-sm btn-success form-control">Filtra</button>
               <button type="submit" (click)="filtra('1')" class="btn btn-sm btn-danger  form-control">Reset</button>
@@ -101,6 +103,9 @@ import { MatSort } from '@angular/material/sort';
 
   </div>
 
+  -->
+
+
   <mat-form-field>
   <mat-label><b>Ricerca nei dati...</b></mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="...ricerca...">
@@ -110,17 +115,17 @@ import { MatSort } from '@angular/material/sort';
 
   <mat-table [dataSource]="dataLista" class="mat-elevation-z8" style="overflow-x:auto;" matSort>
 
-  <ng-container matColumnDef="Numero Volume/Periodo">
+  <ng-container matColumnDef="NumeroVolumePeriodo"  >
       <mat-header-cell *matHeaderCellDef  > Numero Volume/Periodo </mat-header-cell>
       <mat-cell *matCellDef="let element"> Vol.&nbsp;<b>{{element.volume_num_registro}}</b>&nbsp;del {{element.volume_periodo}} </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="Data Verbale">
+  <ng-container matColumnDef="DataVerbale">
       <mat-header-cell *matHeaderCellDef  > Data Verbale </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.verbale_data | date: 'dd/MM/yyyy'}} </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="Ordine del giorno">
+  <ng-container matColumnDef="Odg">
       <mat-header-cell *matHeaderCellDef  > Ogd </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.odg_numero}} </mat-cell>
   </ng-container>
@@ -147,12 +152,12 @@ import { MatSort } from '@angular/material/sort';
 
   <ng-container matColumnDef="Indice">
     <mat-header-cell *matHeaderCellDef > Indice </mat-header-cell>
-    <mat-cell *matCellDef="let element"><a *ngIf='element.volume_nome_file_indice' href="{{element.volume_nome_file_indice}}" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
+    <mat-cell *matCellDef="let element"><a *ngIf='element.volume_nome_file_indice' href="http://interno.aterroma.it/dafne/verbali/indici/{{element.volume_nome_file_indice}}.pdf" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Volume">
     <mat-header-cell *matHeaderCellDef > Volume </mat-header-cell>
-    <mat-cell *matCellDef="let element"><a *ngIf='element.volume_nome_file_integrale' href="{{element.volume_nome_file_integrale}}#page={{element.pag_numero}}" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
+    <mat-cell *matCellDef="let element"><a *ngIf='element.volume_nome_file_integrale' href="http://interno.aterroma.it/dafne/verbali/volumi/{{element.volume_nome_file_integrale}}.pdf#page={{element.odg_pag_numero}}" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
   </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -168,8 +173,14 @@ import { MatSort } from '@angular/material/sort';
 
 
 
-      <table class="table table-bordered table-striped table-sm">
-      <!--"table table-sm"> -->
+
+
+
+
+
+
+<!--       <table class="table table-bordered table-striped table-sm">
+
         <thead>
           <tr>
             <th>Numero Volume/Periodo</th>
@@ -199,6 +210,7 @@ import { MatSort } from '@angular/material/sort';
 
         </tbody>
       </table>
+-->
 
 <!--
       <div class="row">
@@ -221,7 +233,7 @@ import { MatSort } from '@angular/material/sort';
 })
 export class VvDatatableComponent implements OnInit{
 
-  displayedColumns: string[] = ['Numero Volume/Periodo','Data Verbale','Ordine del giorno','Pagina','Testo','Luoghi','Note','Indice','Volume'];
+  displayedColumns: string[] = ['NumeroVolumePeriodo','DataVerbale','Odg','Pagina','Testo','Luoghi','Note','Indice','Volume'];
   dataLista: MatTableDataSource<any> ;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
