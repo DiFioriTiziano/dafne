@@ -2,10 +2,12 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { VerbaliService } from '../../services/verbali.service';
 import { Router } from '@angular/router';
+import { AlertConfig } from 'ngx-bootstrap/alert';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  providers: [{ provide: AlertConfig }]
 })
 export class LoginComponent {
 
@@ -27,11 +29,15 @@ export class LoginComponent {
   login(){
     this.messErrorLogin = "";
     const val = this.formLogin.value;
-    console.log(val);
+
       if (val.user && val.password) {
            this.srv.login(val.user, val.password)
               .subscribe(
-                  (res) =>  this.router.navigateByUrl('/dashboard'),
+                  (res) =>  {
+                    if(res.length !== 0){this.router.navigateByUrl('/dashboard')}else{
+                      this.messErrorLogin = "Nome utente o password errati... riprovare!"
+                    }
+                  },
                   (e) => this.messErrorLogin = "Nome utente o password errati... riprovare!"
               );
       }else{

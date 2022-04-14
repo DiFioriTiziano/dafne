@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { isEmpty } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,6 @@ API_URL: string;
 API_URL_AUTH: string;
 
   constructor(private http_client:HttpClient) {
-    this.API_URL_AUTH = 'http://interno.aterroma.it/dafne/api';
     this.API_URL = 'http://gcdoc.aterroma.it/dafne/api';
   }
 
@@ -22,13 +22,13 @@ API_URL_AUTH: string;
 
 
   addVerbale(): Observable<any> {
-    return this.http_client.get<any>(`${this.API_URL}/verbali/addverbale/`)
+    return  this.http_client.get<any>(`${this.API_URL}/verbali/addverbale/`)
   }
 
 
-  login(user:string, password:string ) {
 
-    return this.http_client.post<any>(`${this.API_URL_AUTH}/proxy.php`,{user, password})
+  login(user:string, password:string ) {
+    return this.http_client.post<any>(`${this.API_URL}/auth/login/`,JSON.stringify({user, password}))
 /*     return this.http_client.post<any>(`${this.API_URL}/verbali/login`,{user, password}).pipe(
        tap(res =>  {
          this.setSession(res,user),
