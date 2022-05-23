@@ -27,6 +27,7 @@ API_URL_AUTH: string;
 
 
 
+
   login(user:string, password:string ) {
     return this.http_client.post<any>(`${this.API_URL}/auth/login/`,JSON.stringify({user, password}))
 /*     return this.http_client.post<any>(`${this.API_URL}/verbali/login`,{user, password}).pipe(

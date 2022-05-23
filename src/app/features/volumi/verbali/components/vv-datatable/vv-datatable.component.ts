@@ -8,6 +8,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { UtilityService } from '../../../../../services/utility.service';
 
 
 @Component({
@@ -110,6 +111,28 @@ import { MatSort } from '@angular/material/sort';
   <mat-label><b>Ricerca nei dati...</b></mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="...ricerca...">
   </mat-form-field>
+  <button  (click)="exportToExcel()" mat-button color="primary">
+  <mat-icon>download</mat-icon>Scarica in Excel
+  </button>
+
+<!--   <div class="row">
+  <div class="col-10">
+  </div>
+
+    <div>
+      <button  (click)="exportToExcel()" mat-button color="primary">
+      <mat-icon>download</mat-icon>Scarica in Excel
+      </button>
+    </div>
+
+      <div class="col-2">
+        <button class="btn btn-primary" type="button" disabled="">
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Attendi...
+        </button>
+    </div>
+</div>
+-->
+
 
   <!--class="mat-elevation-z8" -->
 
@@ -255,9 +278,13 @@ export class VvDatatableComponent implements OnInit{
 
   dataList: any;
   filtro: any;
+  dataExcel: any;
 
-
-  constructor(private formBuilder: FormBuilder, private srv: VerbaliService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private srv: VerbaliService,
+    private utilityService: UtilityService
+  ) {
 
   }
 
@@ -368,6 +395,11 @@ pageChanged(event: PageChangedEvent): void {
     return array.filter(check);
   }
 
+
+  exportToExcel() {
+  console.log(this.dataLista.filteredData);
+    this.utilityService.exportAsExcelFile(this.dataLista.filteredData, 'verbali');
+  }
 
 
 }

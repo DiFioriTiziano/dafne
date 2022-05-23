@@ -21,6 +21,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule } from '@angular/material/button';
+import {MatIconModule } from '@angular/material/icon';
+
+
+
 
 @NgModule({
   declarations: [VerbaliComponent, VvListComponent, VvDatatableComponent, VvAddverbaleModalComponent],
@@ -36,7 +41,9 @@ import {MatInputModule} from '@angular/material/input';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule
 
   ],
   providers: [VerbaliService,
