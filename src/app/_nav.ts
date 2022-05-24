@@ -31,7 +31,7 @@ export const navItems: INavData[] = [
             icon: 'icon-puzzle'
           },
         ]
-      },
+/*       },
       {
         name: 'Allegati',
         url: '/volumi',
@@ -42,7 +42,7 @@ export const navItems: INavData[] = [
             url: '/volumi/elenco',
             icon: 'icon-puzzle'
           },
-        ]
+        ] */
       }
     ]
   }
