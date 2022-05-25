@@ -397,8 +397,21 @@ pageChanged(event: PageChangedEvent): void {
 
 
   exportToExcel() {
-  console.log(this.dataLista.filteredData);
-    this.utilityService.exportAsExcelFile(this.dataLista.filteredData, 'verbali');
+    this.dataExcel = this.dataLista.filteredData;
+
+      const filterExcel = this.dataExcel.map((resp) => {
+        return {
+          volume_id: resp.volume_id,
+          volume_periodo: resp.volume_periodo,
+          verbale_data: resp.verbale_data,
+          odg_pag_numero: resp.odg_pag_numero,
+          cont_testo: resp.cont_testo,
+          cont_luoghi: resp.cont_luoghi,
+          cont_note: resp.cont_note
+        }
+      })
+
+    this.utilityService.exportAsExcelFile(filterExcel, 'verbali');
   }
 
 
