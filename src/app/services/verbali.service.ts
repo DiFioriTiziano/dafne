@@ -20,6 +20,16 @@ API_URL_AUTH: string;
     return this.http_client.get<any>(`${this.API_URL}/verbali/getverbali/`)
   }
 
+  getVerbali_periodo(field:any) {
+    //return this.http_client.post<any>(`${this.API_URL}/verbali/getVerbali_periodo/`,JSON.stringify(field));
+    return this.http_client.post<any>(`${this.API_URL}/verbali/getVerbali_periodo/`, JSON.stringify(field));
+  }
+
+  getDistinct_periodo() {
+    return this.http_client.get<any>(`${this.API_URL}/verbali/distinct_periodo/`);
+  }
+
+
 
   addVerbale(): Observable<any> {
     return  this.http_client.get<any>(`${this.API_URL}/verbali/addverbale/`)

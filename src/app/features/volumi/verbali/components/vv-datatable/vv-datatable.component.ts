@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { map, startWith,filter,find } from 'rxjs/operators';
 import {  Observable } from 'rxjs';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
@@ -106,11 +106,26 @@ import { UtilityService } from '../../../../../services/utility.service';
 
   -->
 
+  <div *ngIf="formPeriodi.touched !== false">
+  <pre><code>{{ formPeriodi.touched}}</code></pre>
+
+  <pre><code>{{ formPeriodi.value | json}}</code></pre>
+  </div>
+
+
 
   <mat-form-field>
   <mat-label><b>Ricerca nei dati...</b></mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="...ricerca...">
   </mat-form-field>
+
+  <mat-form-field>
+  <mat-label>Periodi</mat-label>
+  <mat-select [formControl]="formPeriodi" multiple>
+    <mat-option *ngFor="let periodo of distinctPeriodo" [value]="periodo.volume_periodo">{{periodo.volume_periodo}}</mat-option>
+  </mat-select>
+  </mat-form-field>
+
   <button  (click)="exportToExcel()" mat-button color="primary">
   <mat-icon>download</mat-icon>Scarica in Excel
   </button>
@@ -269,6 +284,9 @@ export class VvDatatableComponent implements OnInit{
   @Input('odg') odg: any;
   @Output() emitFromDatatable: EventEmitter<any> = new EventEmitter<any>();
 
+  formPeriodi = new FormControl();
+
+
   //smallnumPages: number = 5;
 
   formGroup: FormGroup;
@@ -279,6 +297,8 @@ export class VvDatatableComponent implements OnInit{
   dataList: any;
   filtro: any;
   dataExcel: any;
+  dataRegistroPeriodo: any;
+  distinctPeriodo: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -299,6 +319,33 @@ export class VvDatatableComponent implements OnInit{
 
 
   ngOnInit(): void {
+    this.srv.getDistinct_periodo().subscribe((resp)=> {this.distinctPeriodo = resp});
+
+
+
+    this.formPeriodi.valueChanges.subscribe(resp => {
+      this.srv.getVerbali_periodo(resp).subscribe((resp)=> {
+        this.dataRegistroPeriodo = resp
+        this.dataLista = new  MatTableDataSource<any>(resp);
+
+        if(this.dataLista){
+          this.dataLista.paginator = this.paginator;
+          this.dataLista.sort = this.sort;
+        }
+
+        this.dataList = this.dataSource.data.slice(0, 5);
+
+      });
+
+
+
+
+      console.log(resp)
+  })
+
+
+
+
     this.dataLista = new  MatTableDataSource<any>(this.dataSource.data);
 
     if(this.dataLista){
@@ -307,6 +354,9 @@ export class VvDatatableComponent implements OnInit{
     }
 
     this.dataList = this.dataSource.data.slice(0, 5);
+
+
+
 
     this.formGroup = this.formBuilder.group({ filter: [''] });
 
@@ -318,8 +368,6 @@ export class VvDatatableComponent implements OnInit{
               : this.search(this.dataSource.data, val)
             )
           ) */
-
-
 
           this.formAvanzata = this.formBuilder.group({
             volumePeriodo: [''],
@@ -401,13 +449,14 @@ pageChanged(event: PageChangedEvent): void {
 
       const filterExcel = this.dataExcel.map((resp) => {
         return {
-          volume_id: resp.volume_id,
-          volume_periodo: resp.volume_periodo,
-          verbale_data: resp.verbale_data,
-          odg_pag_numero: resp.odg_pag_numero,
-          cont_testo: resp.cont_testo,
-          cont_luoghi: resp.cont_luoghi,
-          cont_note: resp.cont_note
+          Numero_Registro: resp.volume_num_registro,
+          Periodo_Registro: resp.volume_periodo,
+          Data_Verbale: resp.verbale_data,
+          Odg_Numero: resp.odg_numero,
+          Odg_Pagina: resp.odg_pag_numero,
+          Testo: resp.cont_testo,
+          Luoghi: resp.cont_luoghi,
+          Note: resp.cont_note
         }
       })
 
