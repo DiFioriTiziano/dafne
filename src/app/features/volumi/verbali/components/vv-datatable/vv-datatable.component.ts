@@ -447,14 +447,17 @@ pageChanged(event: PageChangedEvent): void {
   exportToExcel() {
     this.dataExcel = this.dataLista.filteredData;
 
-    var datePipe = new datePipe();
+      let filterExcel = this.dataExcel.map((resp) => {
 
-      const filterExcel = this.dataExcel.map((resp) => {
+        let newDate = new Date(resp.verbale_data),
+          options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+
+        let dataIta = newDate.toLocaleDateString('it', options);
+
         return {
           Numero_Registro: resp.volume_num_registro,
           Periodo_Registro: resp.volume_periodo,
-          Data_Verbale: resp.verbale_data,
-          //Data_Verbale: datePipe.transform(resp.verbale_data, 'dd/MM/yyyy'),
+          Data_Verbale: dataIta,
           Odg_Numero: resp.odg_numero,
           Odg_Pagina: resp.odg_pag_numero,
           Testo: resp.cont_testo,
