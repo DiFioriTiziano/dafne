@@ -447,11 +447,14 @@ pageChanged(event: PageChangedEvent): void {
   exportToExcel() {
     this.dataExcel = this.dataLista.filteredData;
 
+    var datePipe = new datePipe();
+
       const filterExcel = this.dataExcel.map((resp) => {
         return {
           Numero_Registro: resp.volume_num_registro,
           Periodo_Registro: resp.volume_periodo,
-          Data_Verbale: resp.verbale_data,
+          //Data_Verbale: resp.verbale_data,
+          Data_Verbale: datePipe.transform(resp.verbale_data, 'dd/MM/yyyy'),
           Odg_Numero: resp.odg_numero,
           Odg_Pagina: resp.odg_pag_numero,
           Testo: resp.cont_testo,
