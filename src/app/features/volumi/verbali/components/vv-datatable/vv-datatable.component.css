@@ -159,6 +159,22 @@ h6 {
   background-color:rgb(240, 240, 240);
 }
 
+.mat-column-EditRiga {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 0 5% !important;
+  width: 5% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
 .mat-column-NumeroVolumePeriodo {
   word-wrap: break-word !important;
   white-space: unset !important;
@@ -252,8 +268,8 @@ h6 {
 .mat-column-Note {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 18% !important;
-  width: 18% !important;
+  flex: 0 0 13% !important;
+  width: 13% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   padding-left: 15px;
@@ -267,8 +283,8 @@ h6 {
 .mat-column-Indice {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 6% !important;
-  width: 6% !important;
+  flex: 0 0 5% !important;
+  width: 5% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
 
@@ -282,8 +298,8 @@ h6 {
 .mat-column-Volume {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 6% !important;
-  width: 6% !important;
+  flex: 0 0 5% !important;
+  width: 5% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
 

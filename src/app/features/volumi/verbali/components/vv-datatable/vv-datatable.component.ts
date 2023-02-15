@@ -198,6 +198,14 @@ import { UtilityService } from '../../../../../services/utility.service';
     <mat-cell *matCellDef="let element"><a *ngIf='element.volume_nome_file_integrale' href="http://interno.aterroma.it/dafne/verbali/volumi/{{element.volume_nome_file_integrale}}.pdf#page={{element.odg_pag_numero}}" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
   </ng-container>
 
+  <ng-container matColumnDef="EditRiga">
+  <mat-header-cell *matHeaderCellDef > EDIT </mat-header-cell>
+  <mat-cell *matCellDef="let element"> <dafne-edit-modal></dafne-edit-modal> </mat-cell>
+
+
+  <!-- <mat-cell *matCellDef="let element"> <button type="button" class="btn btn-sm btn-primary"><i class="cui-pencil icons font-2sm d-block"></i></button> </mat-cell> -->
+</ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
@@ -271,7 +279,7 @@ import { UtilityService } from '../../../../../services/utility.service';
 })
 export class VvDatatableComponent implements OnInit{
 
-  displayedColumns: string[] = ['NumeroVolumePeriodo','DataVerbale','Odg','Pagina','Testo','Luoghi','Note','Indice','Volume'];
+  displayedColumns: string[] = ['NumeroVolumePeriodo','DataVerbale','Odg','Pagina','Testo','Luoghi','Note','Indice','Volume','EditRiga'];
   dataLista: MatTableDataSource<any> ;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -340,13 +348,14 @@ export class VvDatatableComponent implements OnInit{
 
 
 
-      console.log(resp)
+
   })
 
 
 
 
     this.dataLista = new  MatTableDataSource<any>(this.dataSource.data);
+    console.log(this.dataLista);
 
     if(this.dataLista){
       this.dataLista.paginator = this.paginator;

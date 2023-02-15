@@ -41,7 +41,7 @@ export class VvListComponent implements OnInit {
 
   ngOnInit(): void {
     this.srv.getVerbali().subscribe((resp)=> {
-          this.dataSource = {
+        this.dataSource = {
           data : resp
         }
     });
