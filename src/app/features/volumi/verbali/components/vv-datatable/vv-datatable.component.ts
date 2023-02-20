@@ -200,7 +200,7 @@ import { UtilityService } from '../../../../../services/utility.service';
 
   <ng-container matColumnDef="EditRiga">
   <mat-header-cell *matHeaderCellDef > EDIT </mat-header-cell>
-  <mat-cell *matCellDef="let element"> <dafne-edit-modal></dafne-edit-modal> </mat-cell>
+  <mat-cell *matCellDef="let element"> <dafne-edit-modal [itemVista]="element"></dafne-edit-modal> </mat-cell>
 
 
   <!-- <mat-cell *matCellDef="let element"> <button type="button" class="btn btn-sm btn-primary"><i class="cui-pencil icons font-2sm d-block"></i></button> </mat-cell> -->

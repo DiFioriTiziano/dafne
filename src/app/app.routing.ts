@@ -51,6 +51,10 @@ export const routes: Routes = [
     },
     children: [
       {
+        path: 'base',
+        loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule)
+      },
+      {
         path: 'verbali',
         loadChildren: () => import('./features/volumi/verbali/verbali.module').then(m => m.VerbaliModule)
       },
