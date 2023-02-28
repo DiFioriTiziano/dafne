@@ -28,6 +28,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
       <div class="card">
       <div class="card-body">
 
+      <small class="text-muted">Riepilogo dati (non modificabili)</small>
+      <div class="progress progress-xs my-3">
+        <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+      </div>
+
       <div class="container text-left">
         <div class="row">
 
@@ -38,7 +43,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
           <div class="col-4">
             <div class="h6 m-0">Data Verbale</div>
-            <div>{{itemVista.verbale_data}}</div>
+            <div>{{itemVista.verbale_data | date: 'dd/MM/yyyy'}}</div>
           </div>
 
           <div class="col-2">
@@ -54,15 +59,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
         </div>
       </div>
 
-          <div class="progress progress-xs my-3">
-            <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-          <small class="text-muted">Riepilogo dati (non modificabili)</small>
         </div>
       </div>
-
-
-
 
 
       <div class="card">
