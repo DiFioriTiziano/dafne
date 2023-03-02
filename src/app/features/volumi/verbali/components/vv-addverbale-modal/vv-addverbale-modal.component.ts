@@ -85,4 +85,7 @@ export class VvAddverbaleModalComponent implements OnInit {
     this.emitFromVerbale.emit(datiForm);
   }
 
+
+
+
 }

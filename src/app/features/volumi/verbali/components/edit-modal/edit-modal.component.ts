@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { VerbaliService } from '../../../../../services/verbali.service';
 
 @Component({
   selector: 'dafne-edit-modal',
@@ -137,10 +138,16 @@ export class EditModalComponent implements OnInit {
   @ViewChild('successModal') public successModal: ModalDirective;
 
   reactiveForm: FormGroup;
+  response: any;
 
-  constructor(private fb:FormBuilder) {
+
+  constructor(
+    private fb:FormBuilder,
+    private srv:VerbaliService
+  ) {
 
     this.reactiveForm = this.fb.group({
+        cont_id: [''],
         cont_testo: [''],
         cont_luoghi: [''] ,
         cont_note: ['']
@@ -149,10 +156,29 @@ export class EditModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.reactiveForm.controls['cont_testo'].setValue(this.itemVista.cont_testo);
     console.log(this.itemVista)
+    //this.initializeForm();
   }
 
+
+
+
+ /*  initializeForm() {
+    this.reactiveForm.setValue({
+      cont_testo: this.itemVista.cont_testo,
+
+    })
+  } */
+
+
   saveItem() {
+
+    this.srv.editVerbale(this.itemVista).subscribe((resp)=> {
+      this.response = resp
+    });
+
 
   }
 

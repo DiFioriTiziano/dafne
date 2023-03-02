@@ -17,7 +17,7 @@ API_URL_AUTH: string;
 
 
   getVerbali(): Observable<any> {
-    return this.http_client.get<any>(`${this.API_URL}/verbali/getverbali/`)
+    return this.http_client.get<any>(`${this.API_URL}/verbali/getVerbali/`)
   }
 
   getVerbali_periodo(field:any) {
@@ -35,7 +35,9 @@ API_URL_AUTH: string;
     return  this.http_client.get<any>(`${this.API_URL}/verbali/addverbale/`)
   }
 
-
+  editVerbale(contenuti:any): Observable<any> {
+    return  this.http_client.post<any>(`${this.API_URL}/verbali/editContenutiVerbale/`, JSON.stringify(contenuti))
+  }
 
 
   login(user:string, password:string ) {
