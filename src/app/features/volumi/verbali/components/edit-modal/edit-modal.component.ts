@@ -157,7 +157,10 @@ export class EditModalComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.reactiveForm.controls['cont_id'].setValue(this.itemVista.cont_id);
     this.reactiveForm.controls['cont_testo'].setValue(this.itemVista.cont_testo);
+    this.reactiveForm.controls['cont_luoghi'].setValue(this.itemVista.cont_luoghi);
+    this.reactiveForm.controls['cont_note'].setValue(this.itemVista.cont_note);
     console.log(this.itemVista)
     //this.initializeForm();
   }
