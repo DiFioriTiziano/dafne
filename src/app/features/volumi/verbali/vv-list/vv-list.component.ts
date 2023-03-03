@@ -49,8 +49,8 @@ export class VvListComponent implements OnInit {
   }
 
 
-  datiVerba($event){
-    console.log("Dati arrivati al container ",$event);
+  datiVerba(event){
+    console.log("Dati arrivati al container ",event);
   }
 
 }

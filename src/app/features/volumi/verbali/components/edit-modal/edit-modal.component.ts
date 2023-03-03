@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import {ModalDirective} from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { VerbaliService } from '../../../../../services/verbali.service';
@@ -120,7 +120,7 @@ data- <b>{{ reactiveForm.value | json  }}</b>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Annulla</button>
-          <button    type="button" class="btn btn-success">Salva</button>
+          <button    type="button" (click)="saveItem(reactiveForm.value)" class="btn btn-success">Salva</button>
         </div><!-- /.modal-footer -->
 
 
@@ -131,9 +131,15 @@ data- <b>{{ reactiveForm.value | json  }}</b>
 
   styleUrls: ['./edit-modal.component.css']
 })
+
+
+
 export class EditModalComponent implements OnInit {
 
   @Input('itemVista') itemVista: any;
+
+  @Output() emitEditContenuti: EventEmitter<any> = new EventEmitter<any>();
+
 
   @ViewChild('successModal') public successModal: ModalDirective;
 
@@ -176,12 +182,14 @@ export class EditModalComponent implements OnInit {
   } */
 
 
-  saveItem() {
+  saveItem(datiModificati) {
 
-    this.srv.editVerbale(this.itemVista).subscribe((resp)=> {
+/*     this.srv.editVerbale(this.itemVista).subscribe((resp)=> {
       this.response = resp
-    });
+    });*/
 
+
+    this.emitEditContenuti.emit(datiModificati);
 
   }
 
