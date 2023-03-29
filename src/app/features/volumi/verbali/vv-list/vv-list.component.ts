@@ -14,7 +14,7 @@ import { VerbaliService } from '../../../../services/verbali.service';
       [volume]="volume"
       [dataVerbale]="dataVerbale"
       [odg]="odg"
-      (emitFromDatatable)="datiVerba($event)">
+      (emitFromDatatable)="salvaDatiVerba($event)">
     </dafne-vv-datatable>
 
   </div>
@@ -29,6 +29,7 @@ export class VvListComponent implements OnInit {
   volume:any;
   dataVerbale:any;
   odg:any;
+  datiModificati: any;
 
   constructor(private srv:VerbaliService) {
 
@@ -49,8 +50,14 @@ export class VvListComponent implements OnInit {
   }
 
 
-  datiVerba(event){
+  salvaDatiVerba(event){
     console.log("Dati arrivati al container ",event);
+
+    this.srv.editVerbale(event).subscribe((resp)=> {
+    this.datiModificati = resp
+    console.log(resp)
+    })
+
   }
 
 }

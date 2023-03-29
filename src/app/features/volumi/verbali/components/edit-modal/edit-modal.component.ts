@@ -63,7 +63,6 @@ import { VerbaliService } from '../../../../../services/verbali.service';
         </div>
       </div>
 
-
       <div class="card">
         <div class="card-header">
           <strong>Dati modificabili</strong>
@@ -102,7 +101,6 @@ import { VerbaliService } from '../../../../../services/verbali.service';
         </div>
 </div>
 
-
 data- <b>{{ reactiveForm.value | json  }}</b>
 
 <!--             <pre>
@@ -119,7 +117,7 @@ data- <b>{{ reactiveForm.value | json  }}</b>
                 </pre> -->
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="successModal.hide()">Annulla</button>
+          <button type="button" class="btn btn-secondary" (click)="initializeForm();">Annulla</button>
           <button    type="button" (click)="saveItem(reactiveForm.value)" class="btn btn-success">Salva</button>
         </div><!-- /.modal-footer -->
 
@@ -132,8 +130,6 @@ data- <b>{{ reactiveForm.value | json  }}</b>
   styleUrls: ['./edit-modal.component.css']
 })
 
-
-
 export class EditModalComponent implements OnInit {
 
   @Input('itemVista') itemVista: any;
@@ -145,7 +141,6 @@ export class EditModalComponent implements OnInit {
 
   reactiveForm: FormGroup;
   response: any;
-
 
   constructor(
     private fb:FormBuilder,
@@ -172,15 +167,13 @@ export class EditModalComponent implements OnInit {
   }
 
 
-
-
- /*  initializeForm() {
-    this.reactiveForm.setValue({
-      cont_testo: this.itemVista.cont_testo,
-
-    })
-  } */
-
+  initializeForm() {
+    this.reactiveForm.controls['cont_id'].setValue(this.itemVista.cont_id);
+    this.reactiveForm.controls['cont_testo'].setValue(this.itemVista.cont_testo);
+    this.reactiveForm.controls['cont_luoghi'].setValue(this.itemVista.cont_luoghi);
+    this.reactiveForm.controls['cont_note'].setValue(this.itemVista.cont_note);
+    this.successModal.hide();
+  }
 
   saveItem(datiModificati) {
 
@@ -190,6 +183,7 @@ export class EditModalComponent implements OnInit {
 
 
     this.emitEditContenuti.emit(datiModificati);
+    this.successModal.hide();
 
   }
 
