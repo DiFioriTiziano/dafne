@@ -16,9 +16,9 @@ import { VerbaliService } from '../../../../../services/verbali.service';
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title">Modifica Dati</h4>
-        <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
+<!--         <button type="button" class="close" (click)="successModal.hide()" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button>
+        </button> -->
       </div><!-- /.modal-header -->
       <div class="modal-body">
 
@@ -101,7 +101,7 @@ import { VerbaliService } from '../../../../../services/verbali.service';
         </div>
 </div>
 
-data- <b>{{ reactiveForm.value | json  }}</b>
+<!-- data- <b>{{ reactiveForm.value | json  }}</b> -->
 
 <!--             <pre>
                   <code>

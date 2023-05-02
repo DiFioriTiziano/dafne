@@ -1,5 +1,7 @@
+
 import { Component, OnInit } from '@angular/core';
 import { VerbaliService } from '../../../../services/verbali.service';
+import { StatesService } from '../../../../services/states.service';
 
 
 
@@ -31,7 +33,7 @@ export class VvListComponent implements OnInit {
   odg:any;
   datiModificati: any;
 
-  constructor(private srv:VerbaliService) {
+  constructor(private srv:VerbaliService, private stateVerbali: StatesService) {
 
   //this.srv.distinct_verbali('volume_num_registro').subscribe((resp)=> {this.volume = resp});
     this.srv.group_periodi().subscribe((resp)=> {this.volume = resp});
@@ -41,22 +43,34 @@ export class VvListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.srv.getVerbali().subscribe((resp)=> {
-        this.dataSource = {
-          data : resp
-        }
+
+    this.stateVerbali.getVerbaliData();
+    this.stateVerbali.getVerbaliDataObservable().subscribe((data) => {
+      this.dataSource = {
+        data
+      }
     });
 
   }
 
 
-  salvaDatiVerba(event){
-    console.log("Dati arrivati al container ",event);
+  salvaDatiVerba(item){
 
-    this.srv.editVerbale(event).subscribe((resp)=> {
+/*     console.log("Dati arrivati al container ",item);
+    this.srv.editVerbale(item).subscribe((resp)=> {
     this.datiModificati = resp
     console.log(resp)
-    })
+    }) */
+
+
+  this.stateVerbali.updateVerbaliData(item)
+
+
+   let Index = this.dataSource['data'].findIndex(lista => lista.cont_id === item.cont_id);
+                  this.dataSource['data'][Index] = {...this.dataSource['data'][Index],...item}
+
+      console.log("nuovi",this.dataSource['data'])
+
 
   }
 
