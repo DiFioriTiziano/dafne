@@ -1,22 +1,22 @@
 
 import { Component, OnInit } from '@angular/core';
 import { VerbaliService } from '../../../../services/verbali.service';
-import { StatesService } from '../../../../services/states.service';
+import { StoreVerbaliService } from '../../../../services/storeVerbali.service';
 
 
 
-
+//container
 @Component({
   selector: 'dafne-vv-list',
   template: `
   <div class="animated fadeIn">
     <dafne-vv-datatable
       *ngIf="dataSource"
-      [dataSource]="dataSource"
-      [volume]="volume"
-      [dataVerbale]="dataVerbale"
-      [odg]="odg"
-      (emitFromDatatable)="salvaDatiVerba($event)">
+        [dataSource]="dataSource"
+        [volume]="volume"
+        [dataVerbale]="dataVerbale"
+        [odg]="odg"
+        (emitFromDatatable)="salvaDatiVerba($event)">
     </dafne-vv-datatable>
 
   </div>
@@ -33,7 +33,10 @@ export class VvListComponent implements OnInit {
   odg:any;
   datiModificati: any;
 
-  constructor(private srv:VerbaliService, private stateVerbali: StatesService) {
+  constructor(
+    private srv:VerbaliService,
+    private storeVerbali: StoreVerbaliService
+  ) {
 
   //this.srv.distinct_verbali('volume_num_registro').subscribe((resp)=> {this.volume = resp});
     this.srv.group_periodi().subscribe((resp)=> {this.volume = resp});
@@ -42,14 +45,27 @@ export class VvListComponent implements OnInit {
 
   }
 
+
+
   ngOnInit(): void {
 
-    this.stateVerbali.getVerbaliData();
-    this.stateVerbali.getVerbaliDataObservable().subscribe((data) => {
-      this.dataSource = {
-        data
-      }
-    });
+    // siamo in ascsolto della subject!
+    this.storeVerbali.verbali$.subscribe( (data)=> {
+      console.log("in ascolto su container list!",data)
+      this.dataSource = data
+    })
+
+    this.storeVerbali.getVerbali()
+
+
+
+
+/*         this.srv.getVerbali().subscribe((data) => {
+              this.dataSource = {
+                data
+              }
+        }) */
+
 
   }
 
@@ -63,7 +79,7 @@ export class VvListComponent implements OnInit {
     }) */
 
 
-  this.stateVerbali.updateVerbaliData(item)
+  this.storeVerbali.updateVerbaliData(item)
 
 
    let Index = this.dataSource['data'].findIndex(lista => lista.cont_id === item.cont_id);

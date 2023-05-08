@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { map, startWith,filter,find } from 'rxjs/operators';
 import {  Observable } from 'rxjs';
@@ -9,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { UtilityService } from '../../../../../services/utility.service';
+import { StoreVerbaliService } from '../../../../../services/storeVerbali.service';
 
 
 @Component({
@@ -19,7 +21,7 @@ import { UtilityService } from '../../../../../services/utility.service';
     <div class="card-header">
       Elenco Verbali
     </div>
-
+    <button (click)="testFiltra()" >provafiltro</button>
     <div class="card-body">
 
 <br>
@@ -311,7 +313,8 @@ export class VvDatatableComponent implements OnInit{
   constructor(
     private formBuilder: FormBuilder,
     private srv: VerbaliService,
-    private utilityService: UtilityService
+    private utilityService: UtilityService,
+    private StoreVerbali: StoreVerbaliService
   ) {
 
   }
@@ -327,70 +330,81 @@ export class VvDatatableComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.srv.getDistinct_periodo().subscribe((resp)=> {this.distinctPeriodo = resp});
+          this.srv.getDistinct_periodo().subscribe((resp)=> {this.distinctPeriodo = resp});
 
+            console.log("dati dal dataTable...", this.dataSource.data)
 
+          this.formPeriodi.valueChanges.subscribe(resp => {
+            this.srv.getVerbali_periodo(resp).subscribe((resp)=> {
+              this.dataRegistroPeriodo = resp
+              this.dataLista = new  MatTableDataSource<any>(resp);
 
-    this.formPeriodi.valueChanges.subscribe(resp => {
-      this.srv.getVerbali_periodo(resp).subscribe((resp)=> {
-        this.dataRegistroPeriodo = resp
-        this.dataLista = new  MatTableDataSource<any>(resp);
+              if(this.dataLista){
+                this.dataLista.paginator = this.paginator;
+                this.dataLista.sort = this.sort;
+              }
 
-        if(this.dataLista){
-          this.dataLista.paginator = this.paginator;
-          this.dataLista.sort = this.sort;
-        }
+              this.dataList = this.dataSource.data.slice(0, 5);
 
-        this.dataList = this.dataSource.data.slice(0, 5);
+            });
+        })
 
-      });
+          this.dataLista = new  MatTableDataSource<any>(this.dataSource.data);
+          //console.log(this.dataLista);
 
+          if(this.dataLista){
+            this.dataLista.paginator = this.paginator;
+            this.dataLista.sort = this.sort;
+          }
 
-
-
-
-  })
-
-
-
-
-    this.dataLista = new  MatTableDataSource<any>(this.dataSource.data);
-    console.log(this.dataLista);
-
-    if(this.dataLista){
-      this.dataLista.paginator = this.paginator;
-      this.dataLista.sort = this.sort;
-    }
-
-    this.dataList = this.dataSource.data.slice(0, 5);
+          this.dataList = this.dataSource.data.slice(0, 5);
 
 
 
 
-    this.formGroup = this.formBuilder.group({ filter: [''] });
+          this.formGroup = this.formBuilder.group({ filter: [''] });
 
-/*         this.filteredVerbali$ =
-          this.formGroup.get('filter').valueChanges.pipe(startWith("")).pipe(
-            map((val) =>
-              !val
-              ? this.dataSearch.slice(0, 100)
-              : this.search(this.dataSource.data, val)
-            )
-          ) */
+      /*         this.filteredVerbali$ =
+                this.formGroup.get('filter').valueChanges.pipe(startWith("")).pipe(
+                  map((val) =>
+                    !val
+                    ? this.dataSearch.slice(0, 100)
+                    : this.search(this.dataSource.data, val)
+                  )
+                ) */
 
-          this.formAvanzata = this.formBuilder.group({
-            volumePeriodo: [''],
-            dataVerbale: [''],
-            odg: ['']
-          });
+                this.formAvanzata = this.formBuilder.group({
+                  volumePeriodo: [''],
+                  dataVerbale: [''],
+                  odg: ['']
+                });
   }
 
 
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-      this.dataLista.filter = filterValue.trim().toLowerCase();
+  testFiltra(){
+      this.StoreVerbali.setVerbali_filtra(this.dataSource.data)
+      let x = new  MatTableDataSource<any>(this.dataSource.data);
+      this.dataLista = x
+
+      if(this.dataLista){
+        this.dataLista.paginator = this.paginator;
+        this.dataLista.sort = this.sort;
+      }
+
+      this.dataList = this.dataSource.data.slice(0, 5);
+
   }
+
+
+
+
+
+      applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+          this.dataLista.filter = filterValue.trim().toLowerCase();
+      }
+
 
 
 
