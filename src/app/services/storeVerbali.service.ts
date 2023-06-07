@@ -33,20 +33,29 @@ export class StoreVerbaliService {
   }
 
 
+  setVerbali(dati) {
+    this.verbali.next(dati);
+}
 
 
 
 
 
-  testgetVerbali(): Observable<any> {
+
+/*   testgetVerbali(): Observable<any> {
     return this.http_client.get<any>(`${this.API_URL}/verbali/getVerbali/`)
+  } */
+
+
+
+  filtraProva(filtrati)  {
+      this.verbali.next(filtrati);
   }
 
 
 
 
-
-  setVerbali_filtra(x)  {
+/*   setVerbali_filtra(x)  {
     console.log(x)
 
     let filtrato = x.filter( filtro => filtro.odg_pag_numero === '4' )
@@ -56,7 +65,7 @@ export class StoreVerbaliService {
       }
       console.log("dal pulsante filtro!",verbali)
       this.verbali.next(verbali);
-  }
+  } */
 
 
 
@@ -67,16 +76,17 @@ export class StoreVerbaliService {
   }
 
 
-  getVerbaliData() {
+/*   getVerbaliData() {
     this.http_client.get(`${this.API_URL}/verbali/getVerbali/`).subscribe((data) => {
        this.verbaliData.next(data);
      });
+   } */
 
-   }
 
 
-   updateVerbaliData(item) {
-    this.http_client.post(`${this.API_URL}/verbali/editContenutiVerbale/`, JSON.stringify(item)).subscribe((data) => {
+
+   updateVerbaliData(Request) {
+    this.http_client.post(`${this.API_URL}/verbali/editContenutiVerbale/`, JSON.stringify(Request)).subscribe((data) => {
 
 
 

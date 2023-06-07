@@ -21,7 +21,7 @@ import { StoreVerbaliService } from '../../../../../services/storeVerbali.servic
     <div class="card-header">
       Elenco Verbali
     </div>
-    <button (click)="testFiltra()" >provafiltro</button>
+    <!--  <button (click)="testFiltra()" >provafiltro</button> -->
     <div class="card-body">
 
 <br>
@@ -293,6 +293,7 @@ export class VvDatatableComponent implements OnInit{
   @Input('dataVerbale') dataVerbale: any;
   @Input('odg') odg: any;
   @Output() emitFromDatatable: EventEmitter<any> = new EventEmitter<any>();
+  //@Output() filtraProva: EventEmitter<any> = new EventEmitter<any>();
 
   formPeriodi = new FormControl();
 
@@ -314,8 +315,24 @@ export class VvDatatableComponent implements OnInit{
     private formBuilder: FormBuilder,
     private srv: VerbaliService,
     private utilityService: UtilityService,
-    private StoreVerbali: StoreVerbaliService
+    private storeVerbali: StoreVerbaliService
   ) {
+
+      this.storeVerbali.verbali$.subscribe( (data)=> {
+        console.log("in ascolto su component list!",data)
+      this.dataSource = data
+
+      let x = new  MatTableDataSource<any>(this.dataSource.data);
+      this.dataLista = x
+
+      if(this.dataLista){
+        this.dataLista.paginator = this.paginator;
+        this.dataLista.sort = this.sort;
+      }
+
+      this.dataList = this.dataSource.data.slice(0, 5);
+
+    })
 
   }
 
@@ -326,7 +343,6 @@ export class VvDatatableComponent implements OnInit{
       expanded(event: any): void {
         console.log(event);
       }
-
 
 
   ngOnInit(): void {
@@ -382,19 +398,11 @@ export class VvDatatableComponent implements OnInit{
 
 
 
-  testFiltra(){
-      this.StoreVerbali.setVerbali_filtra(this.dataSource.data)
-      let x = new  MatTableDataSource<any>(this.dataSource.data);
-      this.dataLista = x
+/*  testFiltra(){
 
-      if(this.dataLista){
-        this.dataLista.paginator = this.paginator;
-        this.dataLista.sort = this.sort;
-      }
+    this.filtraProva.emit(this.dataSource.data)
 
-      this.dataList = this.dataSource.data.slice(0, 5);
-
-  }
+  } */
 
 
 
