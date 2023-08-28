@@ -18,17 +18,29 @@ export const navItems: INavData[] = [
   {
     name: 'Volumi',
     url: '/volumi',
-    icon: 'icon-puzzle',
+    icon: 'fa fa-book',
     children: [
       {
         name: 'Verbali',
         url: '/verbali',
-        icon: 'icon-puzzle',
+        icon: 'icon-book-open',
         children: [
           {
             name: 'Elenco',
             url: '/verbali/elenco',
-            icon: 'icon-puzzle'
+            icon: 'fa fa-list'
+          },
+        ]
+       },
+      {
+        name: 'Contratti',
+        url: '/contratti',
+        icon: 'icon-docs',
+        children: [
+          {
+            name: 'Elenco',
+            url: '/contratti/elenco',
+            icon: 'fa fa-list'
           },
         ]
 /*       },
