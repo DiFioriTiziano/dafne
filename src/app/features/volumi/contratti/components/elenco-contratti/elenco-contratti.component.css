@@ -37,10 +37,12 @@
 .mat-column-PeriodoRegistro {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 10% 0 14% !important;
-  width: 14% !important;
+  flex: 0 0 8% !important;
+  width: 8% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
+
+  padding-left: 15px;
 
   word-break: break-word;
 
@@ -50,7 +52,7 @@
   hyphens: auto;
 }
 
-.mat-column-DataVerbale {
+.mat-column-Data {
   word-wrap: break-word !important;
   white-space: unset !important;
   flex: 0 0 8% !important;
@@ -65,21 +67,7 @@
   -webkit-hyphens: auto;
   hyphens: auto;
 }
-.mat-column-Indice {
-  word-wrap: break-word !important;
-  white-space: unset !important;
-  flex: 15 0 5% !important;
-  width: 5% !important;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  /* background-color: yellow; */
-  word-break: break-word;
 
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
 .mat-column-Pagina {
   word-wrap: break-word !important;
   white-space: unset !important;
@@ -147,19 +135,40 @@
   width: 5% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
-
   word-break: break-word;
+
+  padding-left: 15px;
 
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
 }
-.mat-column-Volume {
+
+.mat-column-IndiceFile {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 5% !important;
-  width: 5% !important;
+  flex: 0 10 7% !important;
+  width: 7% !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  /* background-color: yellow; */
+  word-break: break-word;
+
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+
+  display: flex;
+  justify-content: center;
+}
+
+.mat-column-Contratto {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  flex: 0 10 7% !important;
+  width: 7% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
 
@@ -169,4 +178,7 @@
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
+
+  display: flex;
+  justify-content: center;
 }

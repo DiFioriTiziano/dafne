@@ -17,6 +17,7 @@ import { ContrattiService } from '../../../services/contratti.service';
 export class ContrattiContainerComponent  {
 
    dataSource:object;
+   contratti:any
 
 /*   volume:any;
   dataVerbale:any;
@@ -28,9 +29,7 @@ export class ContrattiContainerComponent  {
     private srv: ContrattiService
   ) {
 
-    //this.srv.contratti()
-
-    this.dataSource = [
+/*     this.dataSource = [
     {
       "ID_CONTR": "1",
       "CONTR_N_REGISTRO": "1",
@@ -73,9 +72,19 @@ export class ContrattiContainerComponent  {
       "CONTR_NOME_FILE_indice": "CONTR_001_INDICE",
       "CONTR_NOME_FILE_INTEGRALE": "CONTR_001_INTEGRALE_N_1"
     }
-  ]
+  ] */
 
-    this.srv.updateSubjectContratti(this.dataSource)
+
+  this.contratti = this.srv.contratti()
+
+  console.log("contratti",this.contratti)
+
+
+   // this.srv.updateSubjectContratti(this.contratti)
+
+
+
+
 
     /* this.srv.group_periodi().subscribe((resp)=> {this.volume = resp});
     this.srv.distinct_verbali('verbale_data').subscribe((resp)=> {this.dataVerbale = resp});
@@ -93,7 +102,7 @@ export class ContrattiContainerComponent  {
   }
 
 
-  salvaDatiVerba(itemModificato){
+  salvaDatiContra(itemModificato){
 
       this.srv.updateContrattiData(itemModificato)
           let Index = this.dataSource['data'].findIndex(lista => lista.cont_id === itemModificato.cont_id);

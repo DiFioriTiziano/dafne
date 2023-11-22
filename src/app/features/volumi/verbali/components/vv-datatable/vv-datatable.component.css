@@ -138,6 +138,9 @@
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
+
+  display: flex;
+  justify-content: center;
 }
 .mat-column-Volume {
   word-wrap: break-word !important;
@@ -153,6 +156,9 @@
   -moz-hyphens: auto;
   -webkit-hyphens: auto;
   hyphens: auto;
+
+  display: flex;
+  justify-content: center;
 }
 
 

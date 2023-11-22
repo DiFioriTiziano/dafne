@@ -51,10 +51,10 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 
   <mat-table [dataSource]="dataLista" class="mat-elevation-z8" style="overflow-x:auto;" matSort>
 
-  <ng-container matColumnDef="Id"  >
+<!--   <ng-container matColumnDef="Id"  >
       <mat-header-cell *matHeaderCellDef > Id</mat-header-cell>
       <mat-cell *matCellDef="let element"> <b>{{element.ID_CONTR}}</b> </mat-cell>
-  </ng-container>
+  </ng-container> -->
 
   <ng-container matColumnDef="Nregistro">
       <mat-header-cell *matHeaderCellDef  > N.registro </mat-header-cell>
@@ -62,7 +62,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
   </ng-container>
 
   <ng-container matColumnDef="PeriodoRegistro">
-      <mat-header-cell *matHeaderCellDef  > Periodo_registro </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef  > Periodo registro </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element.CONTR_PERIODO_REGISTRO}} </mat-cell>
   </ng-container>
 
@@ -101,7 +101,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
       <mat-cell *matCellDef="let element"> {{element.CONTR_NOTE}} </mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="Indice file">
+  <ng-container matColumnDef="IndiceFile">
     <mat-header-cell *matHeaderCellDef > Indice file </mat-header-cell>
     <mat-cell *matCellDef="let element"><a *ngIf='element.CONTR_NOME_FILE_indice' href="http://interno.aterroma.it/dafne/contratti/indici/{{element.CONTR_NOME_FILE_indice}}.pdf" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
   </ng-container>
@@ -111,10 +111,10 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
     <mat-cell *matCellDef="let element"><a *ngIf='element.CONTR_NOME_FILE_INTEGRALE' href="http://interno.aterroma.it/dafne/contratti/volumi/{{element.CONTR_NOME_FILE_INTEGRALE}}.pdf" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="EditRiga">
+<!--   <ng-container matColumnDef="EditRiga">
   <mat-header-cell *matHeaderCellDef > EDIT </mat-header-cell>
-  <mat-cell *matCellDef="let element"> <!--<dafne-edit-modal (emitEditContenuti)="editContenuti($event)" [itemVista]="element"></dafne-edit-modal> --></mat-cell>
- </ng-container>
+  <mat-cell *matCellDef="let element"> <!--<dafne-edit-modal (emitEditContenuti)="editContenuti($event)" [itemVista]="element"></dafne-edit-modal> -- ></mat-cell>
+ </ng-container> -->
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
@@ -139,7 +139,7 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 })
 export class ElencoContrattiComponent implements OnInit {
 
-  displayedColumns: string[] = ['Id','Nregistro','PeriodoRegistro','Indice','Data','Argomento','Luoghi','Soggetti','Eventi','Note','Indice file','Contratto','EditRiga'];
+  displayedColumns: string[] = ['Nregistro','PeriodoRegistro','Indice','Data','Argomento','Luoghi','Soggetti','Eventi','Note','IndiceFile','Contratto'];
   dataLista: MatTableDataSource<any> ;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -172,10 +172,9 @@ export class ElencoContrattiComponent implements OnInit {
     //private srv: VerbaliService,
     //private utilityService: UtilityService,
     private srvContratti: ContrattiService
-  ) {
+  )
 
-
-
+  {
 
     // this.srvContratti.subjectContratti$.subscribe( (data)=> {
        // this.dataSource = data

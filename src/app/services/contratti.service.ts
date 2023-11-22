@@ -32,9 +32,8 @@ export class ContrattiService {
 
   contratti()  {
     this.http_client.get(`${this.API_URL}/contratti/read/`).subscribe( (data) => {
-      let contratti = {
-        data
-        }
+      let contratti = data
+
       this.subcontratti.next(contratti);
     });
   }
