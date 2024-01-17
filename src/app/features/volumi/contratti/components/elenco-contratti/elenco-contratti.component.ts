@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { ContrattiService } from '../../../../../services/contratti.service';
 import { map } from 'rxjs/operators';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
+import { UtilityService } from '../../../../../services/utility.service';
 
 @Component({
   selector: 'dafne-elenco-contratti',
@@ -31,23 +32,16 @@ import { PageChangedEvent } from 'ngx-bootstrap/pagination';
   </div> -->
 
 
-<!--
+
   <mat-form-field>
   <mat-label><b>Ricerca nei dati...</b></mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="...ricerca...">
+    <input matInput (keyup)="applyFilterContratti($event)" placeholder="...ricerca...">
   </mat-form-field>
 
-  <mat-form-field>
-  <mat-label>Periodi</mat-label>
-  <mat-select [formControl]="formPeriodi" multiple>
-    <mat-option *ngFor="let periodo of distinctPeriodo" [value]="periodo.volume_periodo">{{periodo.volume_periodo}}</mat-option>
-  </mat-select>
-  </mat-form-field>
-
-  <button  (click)="exportToExcel()" mat-button color="primary">
+  <button  (click)="exportToExcelContratti()" mat-button color="primary">
   <mat-icon>download</mat-icon>Scarica in Excel
   </button>
--->
+
 
   <mat-table [dataSource]="dataLista" class="mat-elevation-z8" style="overflow-x:auto;" matSort>
 
@@ -170,7 +164,7 @@ export class ElencoContrattiComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     //private srv: VerbaliService,
-    //private utilityService: UtilityService,
+    private utilityService: UtilityService,
     private srvContratti: ContrattiService
   )
 
@@ -223,10 +217,10 @@ export class ElencoContrattiComponent implements OnInit {
   }
 
 
-/*       applyFilter(event: Event) {
-        const filterValue = (event.target as HTMLInputElement).value;
-          this.dataLista.filter = filterValue.trim().toLowerCase();
-      } */
+applyFilterContratti(event: Event) {
+  const filterValue = (event.target as HTMLInputElement).value;
+    this.dataLista.filter = filterValue.trim().toLowerCase();
+}
 
 
 
@@ -251,7 +245,7 @@ pageChanged(event: PageChangedEvent): void {
   } */
 
 
-/*   exportToExcel() {
+/* exportToExcel() {
     this.dataExcel = this.dataLista.filteredData;
 
       let filterExcel = this.dataExcel.map((resp) => {
@@ -273,12 +267,39 @@ pageChanged(event: PageChangedEvent): void {
         }
       })
 
-    this.utilityService.exportAsExcelFile(filterExcel, 'verbali');
-  } */
+    this.utilityService.exportAsExcelFile(filterExcel, 'verbali'); */
+
+    exportToExcelContratti() {
+      this.dataExcel = this.dataLista.filteredData;
+
+        let filterExcel = this.dataExcel.map((resp) => {
+
+          let newDate = new Date(resp.verbale_data),
+            options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+
+          let dataIta = newDate.toLocaleDateString('it', options);
+
+          return {
+
+            Contr_Numero_Registro: resp.CONTR_N_REGISTRO,
+            Contr_Periodo_Registro: resp.CONTR_PERIODO_REGISTRO,
+            Contr_Indice: resp.CONTR_INDICE,
+            Contr_Data: resp.CONTR_data,
+            Contr_Argomento: resp.CONTR_ARGOMENTO,
+            Contr_Luoghi: resp.CONTR_LUOGHI,
+            Contr_Soggetti: resp.CONTR_SOGGETTI,
+            Contr_Eventi: resp.CONTR_EVENTI,
+            Contr_Note: resp.CONTR_NOTE
+          }
+        })
+
+      this.utilityService.exportAsExcelFile(filterExcel, 'contratti');
+    }
+}
 
 /*   editContenuti(datiModificati){
     this.emitFromDatatable.emit(datiModificati);
   } */
 
 
-}
+

@@ -500,6 +500,7 @@ pageChanged(event: PageChangedEvent): void {
     this.utilityService.exportAsExcelFile(filterExcel, 'verbali');
   }
 
+
   editContenuti(datiModificati){
     console.log(datiModificati);
     this.emitFromDatatable.emit(datiModificati);
