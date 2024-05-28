@@ -43,18 +43,18 @@ export const navItems: INavData[] = [
             icon: 'fa fa-list'
           },
         ]
-/*       },
+      },
       {
         name: 'Allegati',
-        url: '/volumi',
-        icon: 'icon-puzzle',
+        url: '/allegati',
+        icon: 'icon-folder-alt',
         children: [
           {
             name: 'Elenco',
-            url: '/volumi/elenco',
-            icon: 'icon-puzzle'
+            url: '/allegati/elenco',
+            icon: 'fa fa-list'
           },
-        ] */
+        ]
       }
     ]
   }

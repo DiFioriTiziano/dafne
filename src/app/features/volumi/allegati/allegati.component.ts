@@ -1,19 +1,34 @@
 import { Component, OnInit } from '@angular/core';
+import { AllegatiService } from '../../../services/allegati.service';
 
 @Component({
   selector: 'dafne-allegati',
   template: `
-    <p>
-      allegati works!
-    </p>
+    <dafne-va-list
+    *ngIf="dataSource"
+    [dataSource]="dataSource"
+    >
+
+    </dafne-va-list>
   `,
   styleUrls: ['./allegati.component.css']
 })
 export class AllegatiComponent implements OnInit {
 
-  constructor() { }
+  dataSource:any
+  x:any
+
+
+  constructor( private srv: AllegatiService) {
+      this.srv.allegati()
+  }
+
+
 
   ngOnInit(): void {
+     this.srv.subjectAllegati$.subscribe( (data)=> {
+      this.dataSource = data
+    })
   }
 
 }

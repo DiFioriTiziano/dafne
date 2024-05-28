@@ -63,6 +63,10 @@ export const routes: Routes = [
         loadChildren: () => import('./features/volumi/contratti/contratti.module').then(m => m.ContrattiModule)
       },
       {
+        path: 'allegati',
+        loadChildren: () => import('./features/volumi/allegati/allegati.module').then(m => m.AllegatiModule)
+      },
+      {
         path: 'buttons',
         loadChildren: () => import('./views/buttons/buttons.module').then(m => m.ButtonsModule)
       },

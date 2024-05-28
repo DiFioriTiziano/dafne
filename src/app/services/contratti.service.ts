@@ -16,7 +16,6 @@ export class ContrattiService {
       subjectContratti$ = this.subcontratti.asObservable();
 
 
-
   constructor(private http_client:HttpClient) {
 
   }

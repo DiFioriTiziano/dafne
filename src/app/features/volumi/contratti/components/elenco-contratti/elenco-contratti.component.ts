@@ -12,15 +12,13 @@ import { UtilityService } from '../../../../../services/utility.service';
 @Component({
   selector: 'dafne-elenco-contratti',
   template: `
-
-
-
-  <div class="col-sm">
-  <div class="card card-accent-primary">
-    <div class="card-header">
-      Elenco Contratti
-    </div>
-    <div class="card-body">
+  <div class="animated fadeIn">
+      <div class="col-sm">
+      <div class="card card-accent-primary">
+        <div class="card-header">
+          Elenco Contratti
+        </div>
+        <div class="card-body">
 
 <br>
 
@@ -121,11 +119,11 @@ import { UtilityService } from '../../../../../services/utility.service';
 
 
 
+        </div>
+      </div>
     </div>
-  </div>
+
 </div>
-
-
 
 
   `,
