@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angu
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { ContrattiService } from '../../../../../services/contratti.service';
-
+import { AllegatiService } from '../../../../../services/allegati.service';
+import { map } from 'rxjs/operators';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import { UtilityService } from '../../../../../services/utility.service';
 
@@ -35,58 +36,63 @@ import { UtilityService } from '../../../../../services/utility.service';
   <mat-table [dataSource]="dataLista" class="mat-elevation-z8" style="overflow-x:auto;" matSort>
 
   <ng-container matColumnDef="Nregistro">
-    <mat-header-cell *matHeaderCellDef  > N.registro </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{"element.CONTR_N_REGISTRO"}} </mat-cell>
+    <mat-header-cell *matHeaderCellDef  > N. registro </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.ALL_N_REGISTRO_card}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="PeriodoRegistro">
     <mat-header-cell *matHeaderCellDef  > Periodo registro </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{"element.CONTR_PERIODO_REGISTRO"}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.ALL_PERIODO}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Indice">
     <mat-header-cell *matHeaderCellDef > Indice </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{"element.CONTR_INDICE"}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.ALL_INDICE}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Data">
     <mat-header-cell *matHeaderCellDef > Data </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{"element.CONTR_data"}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.ALL_DATA_VERB}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="Pagina">
+    <mat-header-cell *matHeaderCellDef > Pagina </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.ALL_PAG_VERB}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Argomento">
     <mat-header-cell *matHeaderCellDef > Argomento </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{"element.CONTR_ARGOMENTO"}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.ALL_TITOLO}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Luoghi">
     <mat-header-cell *matHeaderCellDef > Luoghi </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{"element.CONTR_LUOGHI"}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.ALL_LUOGHI}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Soggetti">
     <mat-header-cell *matHeaderCellDef > Soggetti </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{"element.CONTR_SOGGETTI"}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.ALL_SOGGETTI}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Eventi">
     <mat-header-cell *matHeaderCellDef > Eventi </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{"element.CONTR_EVENTI"}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.ALL_EVENTI}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Note">
     <mat-header-cell *matHeaderCellDef > Note </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{"element.CONTR_NOTE"}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element.ALL_NOTE}} </mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="IndiceFile">
   <mat-header-cell *matHeaderCellDef > Indice file </mat-header-cell>
-  <mat-cell *matCellDef="let element"><a *ngIf='element.CONTR_NOME_FILE_indice' href="http://interno.aterroma.it/dafne/contratti/indici/{{element.CONTR_NOME_FILE_indice}}.pdf" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
+  <mat-cell *matCellDef="let element"><a *ngIf='element.ALL_NOME_FILE_INDICE' href="http://interno.aterroma.it/dafne/allegati/indici/{{element.ALL_NOME_FILE_indice}}.pdf" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
   </ng-container>
 
-  <ng-container matColumnDef="Contratto">
-  <mat-header-cell *matHeaderCellDef > Contratto </mat-header-cell>
-  <mat-cell *matCellDef="let element"><a *ngIf='element.CONTR_NOME_FILE_INTEGRALE' href="http://interno.aterroma.it/dafne/contratti/volumi/{{element.CONTR_NOME_FILE_INTEGRALE}}.pdf" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
+  <ng-container matColumnDef="Allegato">
+  <mat-header-cell *matHeaderCellDef > Allegato </mat-header-cell>
+  <mat-cell *matCellDef="let element"><a *ngIf='element.ALL_NOME_FILE_INTEGRALE' href="http://interno.aterroma.it/dafne/allegati/volumi/{{element.ALL_NOME_FILE_INTEGRALE}}.pdf" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
   </ng-container>
 
   <!--   <ng-container matColumnDef="EditRiga">
@@ -114,7 +120,7 @@ import { UtilityService } from '../../../../../services/utility.service';
 })
 export class VaListComponent implements OnInit {
 
-  displayedColumns: string[] = ['Nregistro','PeriodoRegistro','Indice','Data','Argomento','Luoghi','Soggetti','Eventi','Note','IndiceFile','Contratto'];
+  displayedColumns: string[] = ['Nregistro','PeriodoRegistro','Indice','Data','Pagina','Argomento','Luoghi','Soggetti','Eventi','Note','IndiceFile','Allegato'];
   dataLista: MatTableDataSource<any> ;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -134,7 +140,7 @@ export class VaListComponent implements OnInit {
 
   constructor(
     private utilityService: UtilityService,
-    private srvContratti: ContrattiService
+    private srvContratti: AllegatiService
   ){  }
 
   isCollapsed: boolean = false;
