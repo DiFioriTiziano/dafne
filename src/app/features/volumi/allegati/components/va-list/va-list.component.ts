@@ -87,7 +87,7 @@ import { UtilityService } from '../../../../../services/utility.service';
 
   <ng-container matColumnDef="IndiceFile">
   <mat-header-cell *matHeaderCellDef > Indice file </mat-header-cell>
-  <mat-cell *matCellDef="let element"><a *ngIf='element.ALL_NOME_FILE_INDICE' href="http://interno.aterroma.it/dafne/allegati/indici/{{element.ALL_NOME_FILE_indice}}.pdf" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
+  <mat-cell *matCellDef="let element"><a *ngIf='element.ALL_NOME_FILE_INDICE' href="http://interno.aterroma.it/dafne/allegati/indici/{{element.ALL_NOME_FILE_INDICE}}.pdf" target="_blank"><i class="fa fa-file-pdf-o fa-lg text-danger"></i></a></mat-cell>
   </ng-container>
 
   <ng-container matColumnDef="Allegato">
