@@ -23,14 +23,14 @@ import { UtilityService } from '../../../../../services/utility.service';
 <br>
 
 
-<!--   <mat-form-field>
+  <mat-form-field>
   <mat-label><b>Ricerca nei dati...</b></mat-label>
-  <input matInput (keyup)="applyFilterContratti($event)" placeholder="...ricerca...">
+  <input matInput (keyup)="applyFilterAllegati($event)" placeholder="...ricerca...">
   </mat-form-field>
 
-  <button  (click)="exportToExcelContratti()" mat-button color="primary">
+  <button  (click)="exportToExcelAllegati()" mat-button color="primary">
   <mat-icon>download</mat-icon>Scarica in Excel
-  </button> -->
+  </button>
 
 
   <mat-table [dataSource]="dataLista" class="mat-elevation-z8" style="overflow-x:auto;" matSort>
@@ -162,13 +162,12 @@ export class VaListComponent implements OnInit {
               }
 
             this.dataList = this.dataSource
+          }
 
-
-            /*
-            applyFilterContratti(event: Event) {
-              const filterValue = (event.target as HTMLInputElement).value;
-                this.dataLista.filter = filterValue.trim().toLowerCase();
-            } */
+          applyFilterAllegati(event: Event) {
+            const filterValue = (event.target as HTMLInputElement).value;
+              this.dataLista.filter = filterValue.trim().toLowerCase();
+          }
 
 
 
@@ -179,33 +178,34 @@ export class VaListComponent implements OnInit {
             } */
 
 
-  /*     exportToExcelContratti() {
+       exportToExcelAllegati() {
+
         this.dataExcel = this.dataLista.filteredData;
 
           let filterExcel = this.dataExcel.map((resp) => {
 
-            let newDate = new Date(resp.verbale_data),
+            let newDate = new Date(resp.ALL_DATA),
               options = { day: '2-digit', month: '2-digit', year: 'numeric' };
 
             let dataIta = newDate.toLocaleDateString('it', options);
 
             return {
 
-              Contr_Numero_Registro: resp.CONTR_N_REGISTRO,
-              Contr_Periodo_Registro: resp.CONTR_PERIODO_REGISTRO,
-              Contr_Indice: resp.CONTR_INDICE,
-              Contr_Data: resp.CONTR_data,
-              Contr_Argomento: resp.CONTR_ARGOMENTO,
-              Contr_Luoghi: resp.CONTR_LUOGHI,
-              Contr_Soggetti: resp.CONTR_SOGGETTI,
-              Contr_Eventi: resp.CONTR_EVENTI,
-              Contr_Note: resp.CONTR_NOTE
+              All_Numero_Registro: resp.ALL_N_REGISTRO_VERB,
+              All_Periodo_Registro: resp.ALL_PERIODO,
+              All_Indice: resp.ALL_INDICE,
+              All_Data: resp.ALL_DATA_VERB,
+              All_Titolo: resp.ALL_TITOLO,
+              All_Luoghi: resp.ALL_LUOGHI,
+              All_Soggetti: resp.ALL_SOGGETTI,
+              All_Eventi: resp.ALL_EVENTI,
+              All_Note: resp.ALL_NOTE
             }
           })
 
-        this.utilityService.exportAsExcelFile(filterExcel, 'contratti');
-      } */
+        this.utilityService.exportAsExcelFile(filterExcel, 'allegati');
+      }
 
     }
 
-}
+

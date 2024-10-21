@@ -55,7 +55,7 @@
 .mat-column-PeriodoRegistro {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 4% !important;
+  flex: 0 0 6% !important;
   width: 4% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
@@ -73,8 +73,8 @@
 .mat-column-Data {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 8% !important;
-  width: 8% !important;
+  flex: 0 0 7% !important;
+  width: 7% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
 
@@ -179,8 +179,8 @@
 .mat-column-Indice {
   word-wrap: break-word !important;
   white-space: unset !important;
-  flex: 0 0 5% !important;
-  width: 5% !important;
+  flex: 0 0 4% !important;
+  width: 4% !important;
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
